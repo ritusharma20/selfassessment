@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PMC Online Payment</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+}
+
+.wrapper{
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.payment-box{
+  width:900px;
+  background:#fff;
+  display:flex;
+  box-shadow:0 0 10px rgba(0,0,0,0.15);
+}
+
+/* LEFT PANEL */
+.left-panel{
+  width:35%;
+  background:#1f4fa3;
+  color:#fff;
+  padding:30px;
+}
+
+.left-panel h3{
+  font-size:14px;
+  text-transform:uppercase;
+  margin-bottom:30px;
+}
+
+.detail{
+  margin-bottom:15px;
+}
+
+.detail span{
+  font-size:12px;
+  opacity:0.8;
+}
+
+.detail p{
+  margin:5px 0 0;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.amount{
+  font-size:20px;
+}
+
+/* RIGHT PANEL */
+.right-panel{
+  width:65%;
+  padding:30px 40px;
+}
+
+.right-panel h3{
+  font-size:16px;
+  margin-bottom:20px;
+  border-bottom:1px solid #ddd;
+  padding-bottom:10px;
+}
+
+.pay-option{
+  padding:15px 10px;
+  border-bottom:1px solid #eee;
+  cursor:pointer;
+}
+
+.pay-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.pay-header span{
+  font-size:15px;
+}
+
+.arrow{
+  font-size:18px;
+}
+
+.pay-body{
+  display:none;
+  padding:10px 20px;
+  background:#f9fbff;
+}
+
+.pay-body label{
+  display:block;
+  margin-bottom:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <div class="payment-box">
+
+    <!-- LEFT -->
+    <div class="left-panel">
+      <h3>PMC ONLINE AND MANUAL TAX COLLECTION</h3>
+
+      <div class="detail">
+        <span>Order ID</span>
+        <p>6593505</p>
+      </div>
+
+      <div class="detail">
+        <span>Merchant</span>
+        <p>PMC ONLINE AND MANUAL TAX COLLECTION</p>
+      </div>
+
+      <div class="detail">
+        <span>Order Amount</span>
+        <p class="amount">₹ 381.00</p>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-panel">
+      <h3>CHOOSE A PAYMENT OPTION</h3>
+
+      <!-- CARD -->
+      <div class="pay-option" onclick="toggleOption('card')">
+        <div class="pay-header">
+          <span>💳 Card</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="pay-body" id="card">
+          <label><input type="radio" name="card"> Debit Card</label>
+          <label><input type="radio" name="card"> Credit Card</label>
+        </div>
+      </div>
+
+      <!-- NETBANKING -->
+      <div class="pay-option" onclick="toggleOption('netbanking')">
+        <div class="pay-header">
+          <span>🏦 Netbanking</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="pay-body" id="netbanking">
+          <label><input type="radio" name="nb"> State Bank of India</label>
+          <label><input type="radio" name="nb"> HDFC Bank</label>
+          <label><input type="radio" name="nb"> ICICI Bank</label>
+          <label><input type="radio" name="nb"> Axis Bank</label>
+        </div>
+      </div>
+
+      <!-- UPI -->
+      <div class="pay-option" onclick="toggleOption('upi')">
+        <div class="pay-header">
+          <span>📱 UPI</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="pay-body" id="upi">
+          <label><input type="radio" name="upi"> Google Pay</label>
+          <label><input type="radio" name="upi"> PhonePe</label>
+          <label><input type="radio" name="upi"> Paytm</label>
+        </div>
+      </div>
+
+      <!-- BHARAT QR -->
+      <div class="pay-option" onclick="toggleOption('qr')">
+        <div class="pay-header">
+          <span>🇮🇳 Bharat QR</span>
+          <span class="arrow">›</span>
+        </div>
+        <div class="pay-body" id="qr">
+          <p>Scan QR using any UPI App</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+function toggleOption(id){
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Patna Municipal Corporation</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; }
+    body {
+      background: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 12px 30px;
+      border-bottom: 2px solid #ddd;
+    }
+    .header img { height: 60px; margin-right: 15px; }
+    .header .title {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .header .title h2 { font-size: 20px; }
+    .header .title span { font-size: 22px; font-weight: bold; }
+
+    /* CONTAINER */
+    .container {
+      padding: 30px 50px 120px; /* footer height space */
+      background: linear-gradient(#fffaf5, #ffffff);
+      flex: 1;
+    }
+
+    .top-note {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .top-note h3 { font-size: 22px; color: #333; }
+    .top-note p { color: red; font-size: 14px; }
+
+    /* FORM GRID */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px 30px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group label span { color: red; }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      height: 42px;
+      padding: 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .form-group input[readonly] {
+      background: #f5f5f5;
+    }
+
+    .note {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #444;
+    }
+
+    @media(max-width: 992px) {
+      .form-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .container { padding: 20px; }
+    }
+  
+    /* ADDRESS DETAILS */
+    .address-section {
+      margin-top: 45px;
+    }
+
+    .address-section h3 {
+      font-size: 22px;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .address-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px;
+      margin-bottom: 35px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 90px;
+      resize: none;
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .checkbox-group {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group label {
+      color: green;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    @media(max-width: 768px) {
+      .address-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+    }
+
+    /* OWNER DETAILS */
+    .owner-section { margin-top: 50px; }
+    .owner-section h3 { font-size: 22px; margin-bottom: 20px; }
+
+    .owner-table {
+      border: 1px solid #999;
+    }
+
+    .owner-head,
+    .owner-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .owner-head {
+      background: #e8e8e8;
+      font-weight: 600;
+      text-align: center;
+      border-bottom: 1px solid #999;
+    }
+
+    .owner-head div,
+    .owner-row input {
+      padding: 10px;
+      border-right: 1px solid #999;
+    }
+
+    .owner-head div:last-child,
+    .owner-row input:last-child { border-right: none; }
+
+    .owner-row input {
+      border: none;
+      outline: none;
+      height: 42px;
+    }
+
+    /* DOCUMENT UPLOAD */
+    .doc-section { margin-top: 50px; }
+    .doc-section h3 { font-size: 22px; margin-bottom: 20px; }
+
+    .doc-table {
+      border: 1px solid #999;
+    }
+
+    .doc-head,
+    .doc-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .doc-head {
+      background: #e8e8e8;
+      font-weight: 600;
+      text-align: center;
+      border-bottom: 1px solid #999;
+    }
+
+    .doc-head div,
+    .doc-row div {
+      padding: 10px;
+      border-right: 1px solid #999;
+    }
+
+    .doc-head div:last-child,
+    .doc-row div:last-child { border-right: none; }
+
+    .doc-row {
+      border-bottom: 1px solid #999;
+      align-items: center;
+    }
+
+    .doc-row:last-child { border-bottom: none; }
+
+    .doc-row input[type=file] {
+      width: 100%;
+    }
+
+          /* DECLARATION */
+    .declaration-box {
+      margin-top: 40px;
+      padding: 30px 35px 40px;
+      background: #fff9f6;
+    }
+
+    .decl-title {
+      font-weight: 700;
+      color: #8b0000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .decl-text {
+      color: #8b0000;
+      font-size: 14px;
+      line-height: 1.7;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .submit-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 25px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(to right, #8b0a00, #c0392b);
+      border: 2px solid #6d0000;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 18px 170px 18px 90px;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.45);
+      letter-spacing: 1px;
+    }
+
+    .btn-arrow {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #e74c3c;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #2b2b2b;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 40px;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    @media(max-width: 768px) {
+      .declaration-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .decl-left { max-width: 100%; }
+      .footer {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="pics/Patna_Municipal_Corporation_Logo.png" alt="PMC Logo" />
+    <div class="title">
+      <h2>Patna Municipal Corporation</h2>
+      <span>| पटना नगर निगम</span>
+    </div>
+  </div>
+
+  <!-- FORM CONTAINER -->
+  <div class="container">
+    <div class="top-note">
+      <h3>Property Details</h3>
+      <p>Note : (*) field(s) are mandatory.</p>
+    </div>
+
+    <form>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Year of Assessment</label>
+          <input type="text" value="2025-2026" readonly />
+        </div>
+
+        <div class="form-group">
+          <label>Circle <span>*</span></label>
+          <select>
+            <option>Azimabad Circle</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Ward No <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Property Type <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Road on which Located <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Road Category <span>*</span></label>
+          <input type="text" value="Unknown" readonly />
+        </div>
+
+        <div class="form-group">
+          <label>Area of Plot / Land (Sq. Ft.) <span>*</span></label>
+          <input type="text" placeholder="Area of Plot / Land" />
+        </div>
+
+        <div class="form-group">
+          <label>Built-up / Constructed area on the Ground Floor (Sq. Ft.) <span>*</span></label>
+          <input type="text" placeholder="Built-up / Constructed area on the Ground Floor" />
+        </div>
+
+        <div class="form-group">
+          <label>Acquisition date <span>*</span></label>
+          <input type="date" />
+        </div>
+
+        <div class="form-group">
+          <label>Rain Water Harvesting <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Water Connection Facility <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Water Tax Type <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+      </div>
+
+      <p class="note">
+        <b>Note :</b> Water Tax is a one-time tax and applicable in case you are doing your assessment for the first time or you have never paid it earlier.
+      </p>
+    
+      <!-- ADDRESS DETAILS -->
+      <div class="address-section">
+        <h3>Address Details</h3>
+
+        <div class="address-grid">
+          <!-- LEFT -->
+          <div class="address-col">
+            <div class="form-group">
+              <label>Property Address <span>*</span></label>
+              <textarea placeholder="Enter Address"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Pin Code</label>
+              <input type="text" placeholder="Enter PIN" />
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="address-col">
+            <div class="form-group">
+              <label>Correspondence Address <span>*</span></label>
+              <textarea placeholder="Enter Address"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Pin Code</label>
+              <input type="text" placeholder="Enter PIN" />
+            </div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="sameAddress" />
+              <label for="sameAddress">Same as Property Address</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="form-group">
+            <label>Mobile No. <span>*</span></label>
+            <input type="text" value="9905122075" readonly />
+          </div>
+
+          <div class="form-group">
+            <label>Email Id</label>
+            <input type="email" placeholder="Enter Email" />
+          </div>
+        </div>
+            
+      <!-- OWNER DETAILS -->
+      <div class="owner-section">
+        <h3>Owner Details</h3>
+
+        <div class="form-group" style="max-width:400px; margin-bottom:20px;">
+          <label>Ownership Type <span>*</span></label>
+          <select>
+            <option>Select</option>
+          </select>
+        </div>
+
+        <div class="owner-table">
+          <div class="owner-head">
+            <div>Name <span>*</span></div>
+            <div>Electricity CA No. <span>*</span></div>
+          </div>
+          <div class="owner-row">
+            <input type="text" placeholder="Enter Name" />
+            <input type="text" placeholder="Enter Electricity CA No." />
+          </div>
+        </div>
+      </div>
+
+      <!-- DOCUMENT UPLOAD -->
+      <div class="doc-section">
+        <h3>Documents Upload</h3>
+
+        <div class="doc-table">
+          <div class="doc-head">
+            <div>Document Name</div>
+            <div>Upload File (Only .pdf file)</div>
+          </div>
+
+          <div class="doc-row">
+            <div>1. Registry Paper or CO Rent Receipt and Mutation Order Sheet <span>*</span></div>
+            <div><input type="file" accept="application/pdf" /></div>
+          </div>
+
+          <div class="doc-row">
+            <div>2. Electricity Bill <span>*</span></div>
+            <div><input type="file" accept="application/pdf" /></div>
+          </div>
+
+          <div class="doc-row">
+            <div>3. Building/Vacant Land Photo (Clearly mentioned GPS location and should be captured at site location) <span>*</span></div>
+            <div><input type="file" accept="application/pdf" /></div>
+          </div>
+        </div>
+      </div>
+
+                <!-- DECLARATION -->
+      <div class="declaration-box">
+        <label class="decl-title">
+          <input type="checkbox" /> Declaration:
+        </label>
+
+        <p class="decl-text">
+          I/We declare that the above information and property tax assessment is correct to the best of my/our knowledge and I/We undertake to abide by the relevant provisions of the Bihar Municipal Act 2007.
+        </p>
+
+        <p class="decl-text">
+          I/We fully understand that if any of the above information is found to be false, I/We shall be liable for penal action or other consequences under the law, rule or regulation prescribed by the Government of Bihar or Municipality.
+        </p>
+
+        <div class="submit-wrapper">
+          <button class="submit-btn">
+            <span class="btn-text">SUBMIT</span>
+            <span class="btn-arrow">❯</span>
+          </button>
+        </div>
+      </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>©Patna Municipal Corporation 2023</div>
+    <div>Developed & Maintained By PMU (IT), PMC</div>
+  </footer>
+
+</body>
+</html>

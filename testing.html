@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Floor Details Dynamic Table</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    body{
+        background:#f5f6fa;
+        font-size:14px;
+    }
+    .card{
+        box-shadow:0 2px 6px rgba(0,0,0,.15);
+    }
+    table th{
+        background:#f1f1f1;
+        text-align:center;
+    }
+    table td{
+        text-align:center;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+    <!-- FORM -->
+    <div class="card p-3">
+        <h5>Floor Details</h5>
+
+        <div class="row g-2">
+
+            <div class="col-md-1">
+                <label>Floor No *</label>
+                <select id="floorNo" class="form-select">
+                    <option value="">Select</option>
+                    <option>Ground Floor</option>
+                    <option>1st Floor</option>
+                    <option>2nd Floor</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label>Type of Use *</label>
+                <select id="typeOfUse" class="form-select">
+                    <option value="">Select</option>
+                    <option>Residential</option>
+                    <option>Commercial</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label>Usage Factor *</label>
+                <select id="usageFactor" class="form-select">
+                    <option value="">Select</option>
+                    <option>Residential</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label>Occupancy Type *</label>
+                <select id="occupancyType" class="form-select">
+                    <option value="">Select</option>
+                    <option>Self-Occupied</option>
+                    <option>Rented</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label>Construction Type *</label>
+                <select id="constructionType" class="form-select">
+                    <option value="">Select</option>
+                    <option>Pucca with RCC Roof (RCC)</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label>Built Up Area *</label>
+                <input type="number" id="builtUpArea" class="form-control">
+            </div>
+
+            <div class="col-md-2">
+                <label>Assessment From</label>
+                <input type="text" id="fromYear" class="form-control" value="2025-2026" readonly>
+            </div>
+
+            <div class="col-md-2">
+                <label>Assessment Upto</label>
+                <input type="text" id="uptoYear" class="form-control" value="2025-2026" readonly>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button class="btn btn-primary w-100" onclick="addFloor()">Add +</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TABLE (HIDDEN INITIALLY) -->
+    <div class="card mt-4 p-3" id="tableCard" style="display:none;">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Floor No</th>
+                    <th>Type of Use</th>
+                    <th>Usage Factor</th>
+                    <th>Occupancy Type</th>
+                    <th>Construction Type</th>
+                    <th>Built Up Area</th>
+                    <th>Assessment From</th>
+                    <th>Assessment Upto</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="floorTableBody"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+function addFloor(){
+
+    let floorNo = document.getElementById("floorNo").value;
+    let typeOfUse = document.getElementById("typeOfUse").value;
+    let builtUpArea = document.getElementById("builtUpArea").value;
+
+    if(floorNo=="" || typeOfUse=="" || builtUpArea==""){
+        alert("Please fill required fields");
+        return;
+    }
+
+    // SHOW TABLE ON FIRST ADD
+    document.getElementById("tableCard").style.display = "block";
+
+    let tr = `
+        <tr>
+            <td>${floorNo}</td>
+            <td>${typeOfUse}</td>
+            <td>${document.getElementById("usageFactor").value}</td>
+            <td>${document.getElementById("occupancyType").value}</td>
+            <td>${document.getElementById("constructionType").value}</td>
+            <td>${builtUpArea}</td>
+            <td>${document.getElementById("fromYear").value}</td>
+            <td>${document.getElementById("uptoYear").value}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="this.closest('tr').remove()">Delete</button>
+            </td>
+        </tr>
+    `;
+
+    document.getElementById("floorTableBody").insertAdjacentHTML("beforeend", tr);
+
+    // Clear fields
+    document.getElementById("floorNo").value="";
+    document.getElementById("typeOfUse").value="";
+    document.getElementById("usageFactor").value="";
+    document.getElementById("occupancyType").value="";
+    document.getElementById("constructionType").value="";
+    document.getElementById("builtUpArea").value="";
+}
+</script>
+
+</body>
+</html>
+<f class="html">
+
+
+
+
+
+
+    
+</f>
+
+
+
+
+
+
+
+
+
+
+
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <title>Property Tax Form</title>
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.42857143;
+    }
+
+    .header {
+      width: 97%;
+      padding: 10px;
+      margin-inline: 10px;
+      background: #fff;
+      box-shadow: 0px 2px 10px #00000033;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+
+    #imgLogo {
+      max-height: 50px;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .formBody {
+      padding-left: 5vh;
+    }
+
+    :after,
+    :before {
+      box-sizing: border-box;
+    }
+
+    #dvContent {
+      width: 98%;
+      margin: 0 auto;
+      background: linear-gradient(247deg, #F6F8FD 0%, #FFFAF5 100%);
+      border-radius: 26px;
+      position: relative;
+      top: auto;
+      margin-top: 140px;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+    }
+
+    .property {
+      font: normal normal bold 24px / 71px Roboto;
+      color: #3B3B3B;
+    }
+
+    .row {
+      margin-right: -15px;
+      margin-left: -15px;
+      width: 98%;
+    }
+
+    .row div {
+      padding: 1vh;
+    }
+
+    label {
+      display: inline-block;
+    }
+
+    .form-control {
+      display: block;
+      width: 100%;
+      height: 34px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857143;
+      color: #555;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    sup {
+      color: red;
+      font-size: 14px;
+    }
+
+    /* Table styling */
+    .doc-table th {
+      background: #e6e6e6;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      border: 1px solid #7d7d7d;
+      padding: 1px;
+    }
+
+    .doc-table td {
+      border: 1px solid #7d7d7d;
+      padding: 5px;
+      vertical-align: middle;
+      font-size: 13px;
+      font-weight: 700;
+      color: #333333
+    }
+
+    .doc-table input[type="file"] {
+      font-size: 12px;
+    }
+
+    .mandatory {
+      color: red;
+      font-weight: bold;
+    }
+
+    th,
+    td {
+      border: 1px solid rgb(112, 109, 109);
+      padding: 10px;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #E0E0E2;
+      font: normal normal bold 16px / 24px Roboto;
+    }
+
+
+    .text-maroon {
+      color: Maroon;
+    }
+
+    /* Declaration */
+    .declaration {
+      color: #8b0000;
+      font-weight: bold;
+      font-size: 12.5px;
+      margin-left: 14px;
+      /* margin-top: 10px; */
+    }
+
+    .declaration p {
+      text-align: justify;
+      text-indent: 50px;
+      margin-bottom: 8px;
+    }
+
+    /* Checkbox bold */
+    .form-check-input {
+      width: 12px;
+      height: 12px;
+      border: 0.1px solid gray;
+      margin-top: 2px;
+    }
+
+    .dec {
+      text-indent: 50px;
+    }
+
+    /* Submit button */
+
+    #btnSubmit {
+      margin: 2vh 0vh;
+      width: 100%;
+      height: 7vh;
+      background: transparent linear-gradient(97deg, #861001 0%, #D23F2D 100%) 0% 0% no-repeat;
+      box-shadow: 0px 2px 5px #00000029;
+      background: linear-gradient(90deg, #8b0000 0%, #d23f2d 100%);
+      color: #fff;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px 35px;
+      border-radius: 2px;
+      border: none;
+      box-shadow: 0px 2px 4px #00000066;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+
+    #btnSubmit:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .formBody {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .property {
+        font-size: 18px;
+        line-height: 40px;
+      }
+
+      label {
+        font-size: 12px;
+      }
+
+      .form-control {
+        font-size: 13px;
+        height: 36px;
+      }
+
+      #imgLogo {
+        max-height: 40px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      #imgLogo {
+        max-height: 35px;
+      }
+
+      .property {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-8 col-md-4">
+          <img id="imgLogo" src="Images/Group12060.png" alt="logo">
+        </div>
+        <div class="col-4 d-md-none text-end"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM CONTENT -->
+  <div id="dvContent">
+    <form id="propertyForm" enctype="multipart/form-data">
+      <div class="formBody">
+
+        <!-- PROPERTY DETAILS -->
+        <div class="row">
+          <div class="col-lg-5 col-md-5">
+            <label class="property">Property Details</label>
+          </div>
+          <div class="col-lg-7 col-md-7">
+            <label style="color:#D23F2D; float:right;">Note: (*) field(s) are mandatory.</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Year of Assessment</strong></label>
+            <input name="txtAY" type="text" class="form-control" value="2025-2026" readonly disabled>
+
+
+            <!-- ✅ Hidden (backend ke liye) -->
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Circle <sup>*</sup></strong></label>
+            <select id="ddlCircle" name="ddlCircle" class="form-control">
+              <option selected value="0">Select</option>
+            </select>
+          </div>
+
+          <!-- <div class="col-lg-4 col-md-4">
+                        <label><strong>Circle <sup>*</sup></strong></label>
+                        <select name="ddlCircle" class="form-control">
+                            <option selected value="0">Select</option>
+                            <option value="5">Azimabad Circle</option>
+                            <option value="1">Bankipur Circle</option>
+                            <option value="2">Kankarbagh Circle</option>
+                            <option value="3">New Capital Circle</option>
+                            <option value="6">Patliputra Circle</option>
+                            <option value="4">Patna City</option>
+                        </select>
+                    </div> -->
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Ward No <sup>*</sup></strong></label>
+            <!-- <select name="ddlward" class="form-control">
+                            <option selected value="0">Select</option>
+                        </select> -->
+            <select id="ddlWard" name="ddlWard" class="form-control">
+              <option value="">Select Ward</option>
+            </select>
+
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Property Type <sup>*</sup></strong></label>
+            <select id="ddlPType" name="ddlPType" class="form-control">
+              <option value="0">Select</option>
+            </select>
+
+          </div>
+
+          <div class="col-lg-4 col-md-4">
+            <!-- <label><strong>Road on which Located <sup>*</sup></strong></label> -->
+            <label><strong>Road on which Located *</strong></label>
+            <select id="ddlRoad" name="road_name" class="form-control">
+              <option value="">Select Road</option>
+            </select>
+          </div>
+
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Road Category <sup>*</sup></strong></label>
+            <span class="form-control">Unknown</span>
+            <input type="hidden" name="hfRoadTypeID" value="0">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Area of Plot / Land (Sq. Ft.) <sup>*</sup></strong></label>
+            <input name="txtPLArea" type="number" class="form-control" placeholder="Area of Plot / Land">
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Built-up / Constructed area on Ground Floor (Sq. Ft.) <sup>*</sup></strong></label>
+            <input name="txtBuiltUpArea" type="number" class="form-control" placeholder="Built-up / Constructed area">
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Acquisition date <sup>*</sup></strong></label>
+            <input type="date" name="txtADate" class="form-control">
+          </div>
+        </div>
+
+        <!-- WATER AND RAIN FACILITY -->
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Rain Water Harvesting <sup>*</sup></strong></label>
+            <!-- <select name="ddlRWH" class="form-control">
+                            <option value="Select">Select</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select> -->
+            <select id="ddlWCFacility" name="ddlWCFacility" class="form-control">
+              <option value="0">Select</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Water Connection Facility <sup>*</sup></strong></label>
+            <select id="ddlWaterCFacility" name="ddlWaterCFacility" class="form-control">
+              <option value="">Select</option>
+            </select>
+
+            <!-- <select name="ddlWCFacility" class="form-control">
+                            <option value="0">Select</option>
+                            <option value="1">Govt. Water Connection</option>
+                            <option value="6">Not Applicable</option>
+                            <option value="2">Own Water Connection + Govt. within 400 Yards</option>
+                            <option value="3">Own Water Connection but Govt. not available within 400 Yards</option>
+                        </select> -->
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Water Tax Type <sup>*</sup></strong></label>
+            <select id="ddlWaterTaxType" name="ddlWaterTaxType" class="form-control">
+              <option value="">Select</option>
+            </select>
+
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xl-12">
+            <strong>Note : </strong>Water Tax is a one-time tax and applicable in case you are doing your assessment for
+            the first time or you have never paid it earlier.
+          </div>
+        </div>
+        <!-- ===== FLOOR DETAILS CONTENT ONLY ===== -->
+
+<div class="pmc-container mt-3">
+
+  <h5 class="fw-bold mb-2">Floor Details</h5>
+
+  <p class="small text-muted">
+    <b>Built Up Area:</b>
+    It refers to the entire ratable area along with the thickness of the external walls.
+  </p>
+
+  <div class="table-responsive">
+    <table class="table table-bordered text-center" id="floorTable">
+      <thead>
+        <tr>
+          <th>Floor No.<span class="required">*</span></th>
+          <th>Type Of Use<span class="required">*</span></th>
+          <th>Usage Factor<span class="required">*</span></th>
+          <th>Occupancy Type<span class="required">*</span></th>
+          <th>Construction Type<span class="required">*</span></th>
+          <th>Built Up Area (Sq. Ft)<span class="required">*</span></th>
+          <th>Assessment From Year<span class="required">*</span></th>
+          <th>Assessment Upto Year</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <select id="floorNo" class="form-select">
+              <option value="">Select</option>
+              <!-- <option>Ground</option>
+              <option>1st</option>
+              <option>2nd</option>
+              <option>3rd</option> -->
+            </select>
+          </td>
+
+          <td>
+            <select id="type_of_use" class="form-select">
+              <option value="">Select</option>
+              <!-- <option>Residential</option>
+              <option>Commercial</option> -->
+            </select>
+          </td>
+
+          <td>
+            <select id="usage_factor" class="form-select">
+              <!-- <option value="">Select</option>
+              <option>Self</option>
+              <option>Rented</option> -->
+            </select>
+          </td>
+
+          <td>
+            <select  id="  usage_factor "class="form-select">
+              <!-- <option value="">Select</option>
+              <option>Owner</option>
+              <option>Tenant</option> -->
+            </select>
+          </td>
+
+          <td>
+            <select id="occ"  class="form-select">
+              <option value="">Select</option>
+              <!-- <option>RCC</option>
+              <option>Asbestos</option>
+              <option>Tin Shed</option> -->
+            </select>
+          </td>
+
+          <td>
+            <input type="number" class="form-control" placeholder="Sq. Ft">
+          </td>
+
+          <td>
+            <select class="form-select">
+              <option value="">Select</option>
+              <!-- <option>2020-2021</option>
+              <option>2021-2022</option>
+              <option>2022-2023</option>
+              <option>2023-2024</option> -->
+            </select>
+          </td>
+
+          <td>
+            <select class="form-select">
+              <!-- <option>2025-2026</option> -->
+            </select>
+          </td>
+
+          <td>
+            <button type="button" class="btn btn-primary btn-sm"
+              onclick="addRow()">Add +</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<!-- TABLE (HIDDEN INITIALLY) -->
+    <div class="card mt-4 p-3" id="tableCard" style="display:none;">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Floor No</th>
+                    <th>Type of Use</th>
+                    <th>Usage Factor</th>
+                    <th>Occupancy Type</th>
+                    <th>Construction Type</th>
+                    <th>Built Up Area</th>
+                    <th>Assessment From</th>
+                    <th>Assessment Upto</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="floorTableBody"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- ===== END FLOOR DETAILS CONTENT ===== -->
+
+        <!-- ADDRESS DETAILS -->
+        <!-- ADDRESS DETAILS -->
+        <!-- ADDRESS DETAILS -->
+        <div class="row">
+          <div class="col-lg-5 col-md-5">
+            <label class="property">Address Details</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Property Address -->
+          <div class="col-lg-5 col-md-5">
+            <label><strong>Property Address <sup>*</sup></strong></label>
+            <textarea name="address_p" class="form-control" rows="3" placeholder="Enter Address"></textarea>
+
+            <label class="mt-2"><strong>Pin Code</strong></label>
+            <input type="text" name="pin_p" class="form-control" maxlength="6">
+
+          </div>
+
+          <div class="col-lg-2 col-md-2"></div> <!-- Spacer -->
+
+          <!-- Correspondence Address -->
+          <div class="col-lg-5 col-md-5">
+            <label><strong>Correspondence Address <sup>*</sup></strong></label>
+            <textarea name="address_c" class="form-control" rows="3" placeholder="Enter Address"></textarea>
+
+
+
+            <label class="mt-2"><strong>Pin Code</strong></label>
+            <input type="text" name="pin_c" class="form-control" maxlength="6">
+            <br>
+            <input type="checkbox" name="ck_address"> <strong style="color:#090">Same as Property Address</strong><br>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Mobile No. <sup>*</sup></strong></label>
+            <input type="number" name="mobile_no" class="form-control" maxlength="10" placeholder="Enter Mobile No.">
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Email Id</strong></label>
+            <input type="email" name="email_id" class="form-control" placeholder="Enter Email">
+          </div>
+        </div>
+
+
+        <!-- OWNER DETAILS -->
+        <div class="row">
+          <div class="col-lg-5 col-md-5">
+            <label class="property">Owner Details</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <label><strong>Ownership Type <sup>*</sup></strong></label>
+            <select id="ddlOT" name="ddlOT" class="form-control">
+              <option value="">Select</option>
+            </select>
+
+
+            <!-- <label><strong>Ownership Type <sup >*</sup></strong></label>
+                        <select name="ddlOT" class="form-control">
+                            <option value="0">Select</option>
+                            <option value="1">Single Owner</option>
+                            <option value="2">Joint Owner</option>
+                            <option value="3">Trust</option>
+                            <option value="15">Others</option>
+                        </select> -->
+          </div>
+        </div>
+
+        <div class="row" id="divGOwner">
+          <!-- OWNER DETAILS -->
+
+
+          <div class="row" id="divGOwner">
+            <div class="row">
+              <div class="col-lg-12">
+
+                <!-- MAIN OWNER INPUT TABLE -->
+                <table class="assessment_form" width="100%">
+                  <thead>
+                    <tr>
+                      <th class="extraHead" style="display:none;">Gender</th>
+                      <th>Name <sup>*</sup></th>
+                      <th class="extraHead" style="display:none;">Guardian Name</th>
+                      <th class="extraHead" style="display:none;">Relation</th>
+                      <th class="extraHead" style="display:none;">Aadhar No.</th>
+                      <th>Electricity CA No. <sup>*</sup></th>
+                      <th class="extraHead" style="display:none;">Document</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="ownerBody">
+                    <tr>
+                      <!-- Gender -->
+                      <td class="extraField" style="display:none;">
+                        <select name="gender[]" class="form-control">
+                          <option value="">Select</option>
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
+                      </td>
+
+                      <!-- Name -->
+                      <td>
+                        <input type="text" name="owner_name[]" class="form-control" placeholder="Enter Owner Name">
+                      </td>
+
+                      <!-- Guardian -->
+                      <td class="extraField" style="display:none;">
+                        <input type="text" name="guardian_name[]" class="form-control" placeholder="Guardian Name">
+                      </td>
+
+                      <!-- Relation -->
+                      <td class="extraField" style="display:none;">
+                        <select name="relation[]" class="form-control">
+                          <option value="">Select</option>
+                          <option>Father</option>
+                          <option>Husband</option>
+                        </select>
+                      </td>
+
+                      <!-- Aadhar -->
+                      <td class="extraField" style="display:none;">
+                        <input type="text" name="aadhar_no[]" class="form-control" maxlength="12"
+                          placeholder="Aadhar No" inputmode="numeric"
+                          oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,12)">
+                      </td>
+
+                      <!-- Electricity CA -->
+                      <td>
+                        <input type="text" name="electricity_ca[]" class="form-control" placeholder="Electricity CA No">
+                      </td>
+
+                      <!-- Document -->
+                      <td class="extraField" style="display:none;">
+                        <input type="file" name="owner_document" class="form-control" id="owner_document">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- ADD BUTTON (ONLY FOR JOINT OWNER) -->
+                <button type="button" id="btnAddOwner" class="btn btn-primary btn-sm mt-2" style="display:none;">
+                  Add +
+                </button>
+
+                <!-- JOINT OWNER SUMMARY TABLE -->
+                <table class="table table-bordered mt-3" id="jointTable" style="display:none;">
+                  <thead>
+                    <tr>
+                      <th>Gender</th>
+                      <th>Owner Name</th>
+                      <th>Guardian</th>
+                      <th>Relation</th>
+                      <th>Aadhar</th>
+                      <th>Electricity CA</th>
+                      <th>Document</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!-- DOCUMENT UPLOADS -->
+          <div class="row">
+            <div class="col-lg-5 col-md-5">
+              <label class="property">Document Uploads</label>
+            </div>
+
+            <table class="table doc-table">
+              <thead>
+                <tr>
+                  <th width="70%">Document Name</th>
+                  <th width="30%">Upload File (Only .pdf file)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    1. Registry Paper or CO Rent Receipt and Mutation Order Sheet
+                    <span class="mandatory">*</span>
+                  </td>
+                  <td>
+                    <input type="file" name="registryPaper" class="form-control" accept=".pdf">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    2. Electricity Bill
+                    <span class="mandatory">*</span>
+                  </td>
+                  <td>
+                    <input type="file" name="electricityBill" class="form-control" accept=".pdf">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    3. Building/Vacant Land Photo
+                    (Clearly mentioned GPS location and should be captured at site location)
+                    <span class="mandatory">*</span>
+                  </td>
+                  <td>
+                    <input type="file" name="buildingPhoto" class="form-control" accept=".pdf">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+
+
+
+
+        <!-- DECLARATION -->
+        <div class="declaration">
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="chkDeclaration">
+            <label class="form-check-label" for="chkDeclaration">
+              Declaration:
+            </label>
+          </div>
+          <div class="dec">
+            <p>
+              I/We declare that the above information and property tax assessment is correct to the best of my/our
+              knowledge and I/We undertake to abide by the relevant provisions of the Bihar Municipal Act 2007.
+            </p>
+
+            <p>
+              I/We fully understand that if any of the above information is found to be false, I/We shall be liable
+              for penal action or other consequences under the law, rule or regulation prescribed by the Government
+              of Bihar or Municipality.
+            </p>
+          </div>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <div class="row mt-3">
+          <div class="col-lg-8 col-md-8"></div>
+          <div class="col-lg-4 col-md-4">
+            <button id="btnSubmit" type="submit">Submit &nbsp;❯</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const circleDropdown = document.getElementById("ddlCircle");
+
+    fetch("http://localhost:3000/api/circles")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(circle => {
+                const option = document.createElement("option");
+                option.value = circle.id;              // numeric id
+                option.textContent = circle.circleName; // display name
+                circleDropdown.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error("Error loading circles:", error);
+        });
+});
+</script> -->
+  <!-- <script>
+fetch("http://localhost:3000/api/circles")
+  .then(res => res.json())
+  .then(data => {
+    const ddlCircle = document.getElementById("ddlCircle");
+    data.forEach(c => {
+      ddlCircle.innerHTML += `<option value="${c.id}">${c.circleName}</option>`;
+    });
+  });
+</script> -->
+  <script>
+    const ddlCircle = document.getElementById("ddlCircle");
+
+    fetch("http://localhost:3000/api/circles")
+      .then(res => res.json())
+      .then(data => {
+        ddlCircle.innerHTML = `<option value="">Select Circle</option>`;
+
+        data.forEach(c => {
+          ddlCircle.innerHTML += `
+        <option value="${c.circle_id}">
+          ${c.circleName}
+        </option>`;
+        });
+      });
+  </script>
+
+
+
+
+  <!-- ............propertyType.............. -->
+
+  <!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const ddlPType = document.getElementById("ddlPType");
+
+  fetch("http://localhost:3000/api/property-types")
+    .then(res => res.json())
+    .then(data => {
+      data.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = item.propertyType;
+        ddlPType.appendChild(option);
+      });
+    })
+    .catch(err => console.error(err));
+});
+</script> -->
+
+  <script>
+    fetch("http://localhost:3000/api/property-types")
+      .then(res => res.json())
+      .then(data => {
+        const ddlPType = document.getElementById("ddlPType");
+        data.forEach(p => {
+          ddlPType.innerHTML += `<option value="${p.id}">${p.property_type}</option>`;
+        });
+      });
+  </script>
+  <!-- ..............ward.............. -->
+
+  <script>
+    const ddlWard = document.getElementById("ddlWard");
+
+    ddlCircle.addEventListener("change", function () {
+      const circleId = this.value;
+
+      ddlWard.innerHTML = `<option value="">Select Ward</option>`;
+
+      if (circleId === "") return;
+
+      fetch("http://localhost:3000/api/wards/" + circleId)
+        .then(res => res.json())
+        .then(data => {
+          data.forEach(w => {
+            ddlWard.innerHTML += `
+          <option value="${w.ward_no}">
+            ${w.ward_no}
+          </option>`;
+          });
+        });
+    });
+  </script>
+
+
+
+  <!-- ...............roads............... -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      fetch("http://localhost:3000/api/roads")
+        .then(res => res.json())
+        .then(data => {
+          const ddlRoad = document.getElementById("ddlRoad");
+
+          // clear old options
+          ddlRoad.innerHTML = `<option value="">Select Road</option>`;
+
+          data.forEach(road => {
+            const opt = document.createElement("option");
+            opt.value = road._id;          // id
+            opt.textContent = road.road_name; // name
+            ddlRoad.appendChild(opt);
+          });
+        })
+        .catch(err => console.error("Error:", err));
+
+    });
+  </script>
+  <!-- ...........................rainwater.......... -->
+  <script>
+    fetch("http://localhost:3000/api/rainwater")
+      .then(res => res.json())
+      .then(data => {
+        const ddl = document.getElementById("ddlWCFacility");
+
+        // clear old options (important)
+        ddl.innerHTML = `<option value="">Select</option>`;
+
+        data.forEach(item => {
+          const opt = document.createElement("option");
+          opt.value = item.value;   // yes / no
+          opt.text = item.label;    // Yes / No
+          ddl.appendChild(opt);
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+
+  <!-- ..............waterconnectionroutes............... -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      fetch("http://localhost:3000/api/water-connection")
+        .then(res => res.json())
+        .then(data => {
+          const ddl = document.getElementById("ddlWaterCFacility");
+          ddl.innerHTML = '<option value="">Select</option>';
+
+          data.forEach(item => {
+            const opt = document.createElement("option");
+            opt.value = item.value;
+            opt.textContent = item.label;
+            ddl.appendChild(opt);
+          });
+        });
+
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const ddl = document.getElementById("ddlWaterTaxType");
+      if (!ddl) {
+        console.error("ddlWaterTaxType NOT FOUND");
+        return;
+      }
+
+      fetch("http://localhost:3000/api/water-tax-type")
+        .then(res => res.json())
+        .then(data => {
+          ddl.innerHTML = `<option value="">Select</option>`;
+          data.forEach(item => {
+            ddl.innerHTML += `<option value="${item.value}">${item.label}</option>`;
+          });
+        });
+    });
+
+
+  </script>
+  <!-- ................ownershiptype................. -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      fetch("http://localhost:3000/api/ownership-types")
+        .then(res => res.json())
+        .then(data => {
+          const ddl = document.getElementById("ddlOT");
+          ddl.innerHTML = `<option value="">Select</option>`;
+
+          data.forEach(item => {
+            ddl.innerHTML +=
+              `<option value="${item.value}">${item.label}</option>`;
+          });
+        })
+        .catch(err => console.error(err));
+
+    });
+  </script>
+
+  <!-- ownsrshiptypecheck dynamic -->
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const ddlOT = document.getElementById("ddlOT");
+      const extraFields = document.querySelectorAll(".extraField");
+      const extraHeads = document.querySelectorAll(".extraHead");
+
+      const btnAddOwner = document.getElementById("btnAddOwner");
+      const jointTable = document.getElementById("jointTable");
+      const jointTbody = jointTable.querySelector("tbody");
+      const ownerRow = document.querySelector("#ownerBody tr");
+
+      /* ===============================
+         OWNERSHIP TYPE CHANGE
+         =============================== */
+      ddlOT.addEventListener("change", function () {
+
+        // reset
+        jointTable.style.display = "none";
+        jointTbody.innerHTML = "";
+        btnAddOwner.style.display = "none";
+
+        if (this.value === "1") {
+          // 🔵 SINGLE OWNER
+          extraFields.forEach(td => td.style.display = "table-cell");
+          extraHeads.forEach(th => th.style.display = "table-cell");
+
+        } else if (this.value === "2") {
+          // 🟢 JOINT OWNER
+          extraFields.forEach(td => td.style.display = "table-cell");
+          extraHeads.forEach(th => th.style.display = "table-cell");
+          btnAddOwner.style.display = "inline-block";
+
+        } else {
+          extraFields.forEach(td => td.style.display = "none");
+          extraHeads.forEach(th => th.style.display = "none");
+        }
+      });
+
+      /* ===============================
+         ADD JOINT OWNER
+         =============================== */
+      btnAddOwner.addEventListener("click", function () {
+
+        const gender = ownerRow.querySelector('[name="gender[]"]').value;
+        const name = ownerRow.querySelector('[name="owner_name[]"]').value.trim();
+        const guardian = ownerRow.querySelector('[name="guardian_name[]"]').value.trim();
+        const relation = ownerRow.querySelector('[name="relation[]"]').value;
+        const aadhar = ownerRow.querySelector('[name="aadhar_no[]"]').value.trim();
+        const ca = ownerRow.querySelector('[name="electricity_ca[]"]').value.trim();
+        const docInput = ownerRow.querySelector('[name="owner_document"]');
+
+        if (!name || !ca) {
+          alert("Owner Name & Electricity CA required");
+          return;
+        }
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+      <td>${gender}</td>
+      <td>${name}</td>
+      <td>${guardian}</td>
+      <td>${relation}</td>
+      <td>${aadhar}</td>
+      <td>${ca}</td>
+      <td>${docInput.files[0]?.name || ""}</td>
+      <td>
+        <button type="button" class="btn btn-danger btn-sm">X</button>
+      </td>
+    `;
+
+        /* ===== HIDDEN INPUTS (FORM SUBMIT KE LIYE) ===== */
+        tr.innerHTML += `
+      <input type="hidden" name="gender[]" value="${gender}">
+      <input type="hidden" name="owner_name[]" value="${name}">
+      <input type="hidden" name="guardian_name[]" value="${guardian}">
+      <input type="hidden" name="relation[]" value="${relation}">
+      <input type="hidden" name="aadhar_no[]" value="${aadhar}">
+      <input type="hidden" name="electricity_ca[]" value="${ca}">
+    `;
+
+        if (docInput.files[0]) {
+          const hiddenFile = document.createElement("input");
+          hiddenFile.type = "file";
+          hiddenFile.name = "owner_document[]";
+          hiddenFile.files = docInput.files;
+          hiddenFile.style.display = "none";
+          tr.appendChild(hiddenFile);
+        }
+
+        jointTbody.appendChild(tr);
+        jointTable.style.display = "table";
+
+        // clear input row
+        ownerRow.querySelectorAll("input, select").forEach(el => {
+          if (el.type !== "file") el.value = "";
+          else el.value = "";
+        });
+
+      });
+
+      /* ===============================
+         DELETE JOINT OWNER
+         =============================== */
+      jointTbody.addEventListener("click", function (e) {
+        if (e.target.tagName === "BUTTON") {
+          e.target.closest("tr").remove();
+          if (jointTbody.children.length === 0) {
+            jointTable.style.display = "none";
+          }
+        }
+      });
+
+    });
+  </script>
+
+
+
+
+
+  <!-- <script>
+const ddlOT = document.getElementById("ddlOT");
+const ownerBody = document.getElementById("ownerBody");
+
+ddlOT.addEventListener("change", function () {
+  ownerBody.innerHTML = ""; 
+
+  /* =========================
+     SINGLE OWNER (FULL FIELDS)
+     ========================= */
+  // if (this.value == "1") {   // 👈 single owner ka value (API se aata hai)
+
+  //   ownerBody.innerHTML = `
+  //     <tr>
+  //       <thead>
+
+  //                                                   <tr>
+  //                                                       <th>
+  //                                                           <strong>Gender</strong> <font color="#FF0000">*</font>
+  //                                                       </th>
+  //                                                       <th>
+  //                                                           <label>
+  //                                                               <strong><span id="spn_ownership_type"></span>Name</strong> <font color="#FF0000">*</font>
+  //                                                           </label>
+  //                                                       </th>
+  //                                                       <th>
+  //                                                           <label>
+  //                                                               <strong>Guardian Name <font class="gardian" color="#FF0000">*</font></strong>
+  //                                                           </label>
+  //                                                       </th>
+  //                                                       <th>
+  //                                                           <label>
+  //                                                               <strong>Relation <font class="gardian" color="#FF0000">*</font></strong>
+  //                                                           </label>
+  //                                                       </th>
+                                                        
+  //                                                       <th>
+  //                                                           <label>
+  //                                                               <strong>Aadhar No. </strong>
+
+  //                                                           </label>
+  //                                                       </th>
+  //                                                       <th>
+  //                                                           <label>
+  //                                                               <strong>Electricity CA No.<label id="lblJElectricityValid" style="color: #FF0000;">*</label></strong>
+  //                                                           </label>
+  //                                                       </th>
+  //                                                       <th>
+  //                                                           <label>
+  //                                                               <strong>Aadhar/Voter Card</strong><font color="#FF0000">*</font> (Only .jpg file)
+  //                                                           </label>
+  //                                                       </th>
+
+  //                                                       <th></th>
+  //                                                   </tr>
+  //                                               </thead>
+  //       <td>
+  //         <select name="gender[]" class="form-control">
+  //           <option value="">Gender</option>
+  //           <option>Male</option>
+  //           <option>Female</option>
+  //           <option>Other</option>
+  //         </select>
+  //       </td>
+
+  //       <td>
+  //         <input type="text" name="txtOName[]" class="form-control"
+  //                placeholder="Owner Name">
+  //       </td>
+
+  //       <td>
+  //         <input type="text" name="guardian[]" class="form-control"
+  //                placeholder="Guardian Name">
+  //       </td>
+
+  //       <td>
+  //         <select name="relation[]" class="form-control">
+  //           <option value="">Relation</option>
+  //           <option>Father</option>
+  //           <option>Husband</option>
+  //         </select>
+  //       </td>
+
+  //       <td>
+  //         <input type="text" name="aadhar[]" class="form-control"
+  //                placeholder="Aadhar No">
+  //       </td>
+
+  //       <td>
+  //         <input type="text" name="txtOECNo[]" class="form-control"
+  //                placeholder="Electricity CA No">
+  //       </td>
+
+  //       <td>
+  //         <input type="file" name="ownerDoc[]" class="form-control">
+  //       </td>
+  //     </tr>
+  //   `;
+  // }
+
+  /* =========================
+     JOINT / TRUST / OTHERS
+     ========================= */
+  else if (this.value != "") {
+
+    ownerBody.innerHTML = `
+      <tr>
+        <td>
+          <input name="txtOName[]" type="text"
+                 class="form-control" placeholder="Owner Name">
+        </td>
+        <td>
+          <input name="txtOECNo[]" type="text"
+                 class="form-control" placeholder="Electricity CA No">
+        </td>
+      </tr>
+    `;
+  }
+});
+</script>
+
+
+
+
+
+// <!-- ........assessment year -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const ayInput = document.querySelector('[name="txtAY"]');
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth(); // Jan = 0, April = 3
+
+      let assessmentYear = "";
+
+      if (month >= 3) {
+        // 1 April ya uske baad
+        assessmentYear = `${year}-${year + 1}`;
+      } else {
+        // 1 April se pehle
+        assessmentYear = `${year - 1}-${year}`;
+      }
+
+      ayInput.value = assessmentYear;
+      // ✅ hidden input (FORM SUBMIT KE LIYE)
+      document.getElementById("txtAY").value = assessmentYear;
+
+
+    });
+  </script>
+  <!-- ADDRESSS CHECKBOX -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const chk = document.querySelector('input[name="ck_address"]');
+
+      const addressP = document.querySelector('textarea[name="address_p"]');
+      const pinP = document.querySelector('input[name="pin_p"]');
+
+      const addressC = document.querySelector('textarea[name="address_c"]');
+      const pinC = document.querySelector('input[name="pin_c"]');
+
+      chk.addEventListener("change", function () {
+
+        if (this.checked) {
+          // ✅ copy permanent → correspondence
+          addressC.value = addressP.value;
+          pinC.value = pinP.value;
+
+          // 🔒 readonly (NOT disabled)
+          addressC.readOnly = true;
+          pinC.readOnly = true;
+
+        } else {
+          // ❌ untick → clear
+          addressC.value = "";
+          pinC.value = "";
+
+          addressC.readOnly = false;
+          pinC.readOnly = false;
+        }
+      });
+
+    });
+  </script>
+
+
+  <!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const ayInput = document.querySelector('[name="txtAY"]');
+
+  /* 🔴 TEST DATE — yahan date badal ke check kar sakti ho */
+  const today = new Date("2025-03-20");   // March date
+
+  const year = today.getFullYear();
+  const month = today.getMonth(); // Jan=0, Feb=1, Mar=2, Apr=3
+
+  let ay = "";
+
+  if (month >= 3) {
+    ay = year + "-" + (year + 1);
+  } else {
+    ay = (year - 1) + "-" + year;
+  }
+
+  ayInput.value = ay;
+
+});
+</script>
+
+
+............fileupload..............-->
+  <script>
+    document.getElementById("btnSubmit").addEventListener("click", async function (e) {
+      e.preventDefault(); // page reload rok do
+
+      const form = document.getElementById("propertyForm");
+      const formData = new FormData(form);
+
+      // =======================
+      // 🔹 Basic Validation
+      // =======================
+      if (!formData.get("ddlCircle") || formData.get("ddlCircle") === "0") { alert("Select Circle"); return; }
+      if (!formData.get("ddlWard")) { alert("Select Ward"); return; }
+      if (!formData.get("ddlPType") || formData.get("ddlPType") === "0") { alert("Select Property Type"); return; }
+      if (!formData.get("road_name")) { alert("Select Road"); return; }
+      if (!formData.get("txtPLArea")) { alert("Enter Plot Area"); return; }
+      if (!formData.get("txtBuiltUpArea")) { alert("Enter Built-up Area"); return; }
+      if (!formData.get("txtADate")) { alert("Select Acquisition Date"); return; }
+      if (!formData.get("ddlWCFacility") || formData.get("ddlWCFacility") === "0") { alert("Select Rain Water Harvesting"); return; }
+      if (!formData.get("ddlWaterCFacility") || formData.get("ddlWaterCFacility") === "0") { alert("Select Water Connection Facility"); return; }
+      if (!formData.get("ddlWaterTaxType") || formData.get("ddlWaterTaxType") === "0") { alert("Select Water Tax Type"); return; }
+      if (!formData.get("address_p")) { alert("Enter Property Address"); return; }
+      if (!formData.get("address_c")) { alert("Enter Correspondence Address"); return; }
+      if (!formData.get("mobile_no")) { alert("Enter Mobile Number"); return; }
+      if (!formData.get("ddlOT") || formData.get("ddlOT") === "0") { alert("Select Ownership Type"); return; }
+
+      const ownerNames = formData.getAll("owner_name[]");
+      const ownerCANos = formData.getAll("electricity_ca[]");
+      if (ownerNames.some(v => v.trim() === "")) { alert("Enter Owner Name"); return; }
+      if (ownerCANos.some(v => v.trim() === "")) { alert("Enter Electricity CA No"); return; }
+
+      if (!document.getElementById("chkDeclaration").checked) { alert("Accept declaration"); return; }
+
+      // =======================
+      // 🔹 Submit to server
+      // =======================
+      try {
+        const res = await fetch("http://localhost:3000/api/property-details", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!res.ok) {
+          const errMsg = await res.text();
+          alert("Submission failed: " + errMsg);
+          return;
+        }
+
+        // =======================
+        // 🔹 Parse server response
+        // =======================
+        const json = await res.json();
+
+        if (!json.success || !json.Application_No) {
+          alert("Application number not received from server");
+          return;
+        }
+
+        const appNo = json.Application_No;
+
+        // =======================
+        // 🔹 Save to sessionStorage & Redirect
+        // =======================
+        sessionStorage.setItem("applicationNo", appNo);
+        // ✅ Redirect to read-only view page
+        window.location.href = "propertySuccess.html";
+
+      } catch (err) {
+        console.error("Fetch failed:", err);
+        alert("Server error: " + (err.message || err));
+      }
+    });
+  </script>
+
+
+
+<!-- <script>
+    const categorySelect = document.getElementById('categorySelect');
+    const dataList = document.getElementById('dataList');
+
+    // Function to fetch and display data
+    async function fetchData(category) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/floor-master/${category}`);
+        const data = await response.json();
+
+        // Clear the list
+        dataList.innerHTML = '';
+
+        // Display fetched data
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.label} (${item.value})`;
+          dataList.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    }
+
+    // Fetch data when category changes
+    categorySelect.addEventListener('change', (e) => {
+      fetchData(e.target.value);
+    });
+
+    // Fetch default category on page load
+    fetchData(categorySelect.value);
+  </script> -->
+
+
+<script>
+const API_URL = 'http://localhost:3000/api/floor-master/grouped'; // fetch from backend
+
+// Fetch options from backend
+async function fetchFloorOptions() {
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+    return data; // grouped by category
+  } catch (err) {
+    console.error('Error fetching floor master data:', err);
+    return {};
+  }
+}
+
+// Populate a row's select elements
+function populateRowSelects(row, options) {
+  const selects = {
+    floor_no: row.cells[0].querySelector('select'),
+    type_of_use: row.cells[1].querySelector('select'),
+    usage_type: row.cells[2].querySelector('select'),
+    occupancy_type: row.cells[3].querySelector('select'),
+    construction_type: row.cells[4].querySelector('select'),
+    assessment_from_year: row.cells[6].querySelector('select'),
+    assessment_upto_year: row.cells[7].querySelector('select')
+  };
+
+  function fillSelect(selectElement, items) {
+    selectElement.innerHTML = '<option value="">Select</option>';
+    items.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item.value;
+      option.textContent = item.label;
+      selectElement.appendChild(option);
+    });
+  }
+
+  fillSelect(selects.floor_no, options.floor_no || []);
+  fillSelect(selects.type_of_use, options.type_of_use || []);
+  fillSelect(selects.usage_type, options.usage_type || []);
+  fillSelect(selects.occupancy_type, options.occupancy_type || []);
+  fillSelect(selects.construction_type, options.construction_type || []);
+  fillSelect(selects.assessment_from_year, options.assessment_from_year || []);
+  fillSelect(selects.assessment_upto_year, options.assessment_upto_year || []);
+}
+
+// Add new row dynamically
+async function addRow() {
+  const tableBody = document.querySelector('#floorTable tbody');
+  const firstRow = tableBody.querySelector('tr');
+  const newRow = firstRow.cloneNode(true);
+
+  // Clear input values
+  newRow.querySelectorAll('input').forEach(input => input.value = '');
+  newRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+  // Append new row
+  tableBody.appendChild(newRow);
+
+  // Fetch options and populate the new row
+  const options = await fetchFloorOptions();
+  populateRowSelects(newRow, options);
+}
+
+// Populate first row on page load
+window.addEventListener('DOMContentLoaded', async () => {
+  const tableBody = document.querySelector('#floorTable tbody');
+  const firstRow = tableBody.querySelector('tr');
+  const options = await fetchFloorOptions();
+  populateRowSelects(firstRow, options);
+});
+</script>
+
+</body>
+
+</html>

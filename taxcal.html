@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tax Calculation</title>
+<style>
+    body {
+        font-family: "Times New Roman", serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tax-container {
+        width: 100%;
+        background: #fff;
+        padding: 30px 40px;
+        box-sizing: border-box;
+    }
+
+    .tax-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 25px;
+    }
+
+    .tax-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .tax-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        font-size: 16px;
+    }
+
+    .tax-row span:last-child {
+        font-weight: bold;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .btn {
+        background: #c0392b;
+        color: #fff;
+        border: none;
+        padding: 10px 25px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background: #a93226;
+    }
+
+    .footer {
+        margin-top: 30px;
+        padding-top: 10px;
+        border-top: 1px solid #ccc;
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        color: #333;
+    }
+</style>
+</head>
+<body>
+
+<div class="tax-container">
+
+    <div class="tax-title">Tax Calculation</div>
+
+    <div class="tax-grid">
+
+        <!-- LEFT COLUMN -->
+        <div>
+            <div class="tax-row">
+                <span>Total Current Tax</span>
+                <span>403.86</span>
+            </div>
+
+            <div class="tax-row">
+                <span>Penalty for Late Submission</span>
+                <span>0.00</span>
+            </div>
+
+            <div class="tax-row">
+                <span>Total Amount</span>
+                <span>403.86</span>
+            </div>
+
+            <div class="tax-row">
+                <span>Total Payable</span>
+                <span>381.00</span>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+            <div class="tax-row">
+                <span>Total Arrear Tax</span>
+                <span>0.00</span>
+            </div>
+
+            <div class="tax-row">
+                <span>Water Tax</span>
+                <span>0.00</span>
+            </div>
+
+            <div class="tax-row">
+                <span>Penalty Rebate (OTS)</span>
+                <span>22.86</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="actions">
+        <button class="btn">SUBMIT</button>
+        <button class="btn">DEMAND PREVIEW</button>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>© Patna Municipal Corporation 2023</div>
+        <div>Developed & Maintained by PMU (IT), PMC</div>
+    </div>
+
+</div>
+
+</body>
+</html>

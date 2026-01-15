@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Property Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f4f6f8;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      min-height: 100vh;
+      background: #0f3d3e;
+      color: #fff;
+      position: fixed;
+    }
+
+    .sidebar h5 {
+      padding: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 10px 15px;
+      color: #dfe6e9;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: #1abc9c;
+      color: #fff;
+    }
+
+    /* Main content */
+    .content {
+      margin-left: 230px;
+      padding: 20px;
+    }
+
+    .card-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-search {
+      background: #1abc9c;
+      color: #fff;
+      border: none;
+      padding: 8px 30px;
+    }
+
+    .btn-search:hover {
+      background: #148f77;
+    }
+
+    table th {
+      background: #eef3f5;
+      font-size: 13px;
+    }
+
+    table td {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+  <h5>Nurah IT Team</h5>
+  <a href="#">Dashboard</a>
+  <a href="#">Last Payment Update</a>
+  <a href="#" class="active">Property</a>
+  <a href="#">PTR</a>
+  <a href="#">Search PTR</a>
+  <a href="#">New PTR</a>
+  <a href="#">Document Upload</a>
+  <a href="#">Property Tax Report</a>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+  <div class="card-box mb-4">
+    <h5 class="mb-3">Search Property</h5>
+
+    <form>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Circle</label>
+          <select class="form-select">
+            <option>All Circles</option>
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Ward No</label>
+          <select class="form-select">
+            <option>All Wards</option>
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Property No / Old PID</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">New Holding No / Old Holding No</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Owner Name</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">Mobile No</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label">SAS No</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
+          <button class="btn btn-search w-100">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Property List -->
+  <div class="card-box">
+    <h6>Property List</h6>
+    <p class="text-muted">Total 3 record(s) found.</p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Sl No</th>
+            <th>SAS No</th>
+            <th>Circle</th>
+            <th>Ward No</th>
+            <th>Property No</th>
+            <th>Old PID</th>
+            <th>Owner Name</th>
+            <th>Mobile No</th>
+            <th>Address</th>
+            <th>Assessment Year</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>PMC/41/4773906</td>
+            <td>Bankipur</td>
+            <td>41</td>
+            <td>2031785</td>
+            <td>270118012</td>
+            <td>SYED ATIQUEULLAH</td>
+            <td>9386825665</td>
+            <td>IMAM VILLA, PATNA</td>
+            <td>2025-26</td>
+            <td><button class="btn btn-sm btn-primary">View</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

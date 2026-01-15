@@ -98,7 +98,7 @@ import mongoose from "mongoose";
 /* 🔹 FLOOR SCHEMA */
 const floorSchema = new mongoose.Schema({
   floorNo: String,                 // Ground / First / Second
-  
+
   // USAGE DETAILS
   typeOfUse: String,               // Residential / Commercial / Mixed
   usageFactor: String,             // Self / Rented
@@ -129,7 +129,7 @@ const propertySchema = new mongoose.Schema(
     circle: String,
     ward: String,
     propertyType: String,
-    road_name:String,
+    road_name: String,
     plotArea: String,
     builtUpArea: String,
     acquisitionDate: String,
@@ -170,7 +170,24 @@ const propertySchema = new mongoose.Schema(
       registryPaper: String,
       electricityBill: String,
       buildingPhoto: String
+    },
+
+    vacantLandArea: {
+      type: Number,
+      default: 0     // optional, agar field blank ho to 0 set ho jaye
+    },
+
+    vacantLandTax: {
+      type: Number,
+      default: 0
+    },
+
+    totalPayable: {
+      type: Number,
+      default: 0
     }
+
+
   },
   { timestamps: true }
 );

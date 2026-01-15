@@ -81,6 +81,11 @@ export const getPropertyByApplicationNo = async (req, res) => {
     } else {
       property.waterTaxTypeLabel = "";
     }
+    /* ---------- VACANT LAND TAX FIELDS ---------- */
+    property.vacantLandArea = property.vacantLandArea || 0;
+    property.vacantLandTax = property.vacantLandTax || 0;
+    property.totalPayable = property.totalPayable || 0;
+
 
     return res.json({ success: true, data: property });
 
@@ -156,6 +161,10 @@ export const getLatestProperty = async (req, res) => {
     } else {
       property.waterTaxTypeLabel = "";
     }
+    /* ---------- VACANT LAND TAX FIELDS ---------- */
+    property.vacantLandArea = property.vacantLandArea || 0;
+    property.vacantLandTax = property.vacantLandTax || 0;
+    property.totalPayable = property.totalPayable || 0;
 
     return res.json({ success: true, data: property });
 

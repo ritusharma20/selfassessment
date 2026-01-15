@@ -748,25 +748,9 @@ body {
       </tr>
     </thead>
 
-    <tbody>
-      <tr>
-        <td>
-          <label id="assessmentYearValue">2025-2026</label>
-        </td>
+    <tbody id="vacantLandTableBody">
+</tbody>
 
-        <td>
-          <label id="vacantAreaValue">1361.00</label>
-        </td>
-
-        <td>
-          <label id="unitRateValue">0.28</label>
-        </td>
-
-        <td>
-          <label id="annualTaxValue">381.00</label>
-        </td>
-      </tr>
-    </tbody>
   </table>
 
 </div>
@@ -792,15 +776,9 @@ body {
       </tr>
     </thead>
 
-    <tbody>
-      <tr>
-        <td><label id="arrearYearValue"></label></td>
-        <td><label id="arrearAnnualTaxValue"></label></td>
-        <td><label id="arrearVacantTaxValue"></label></td>
-        <td><label id="arrearInterestValue"></label></td>
-        <td><label id="arrearTotalValue"></label></td>
-      </tr>
-    </tbody>
+    <tbody id="arrearTaxTableBody">
+</tbody>        
+
   </table>
 
 </div>
@@ -982,6 +960,63 @@ async function loadProperty() {
     if (!json.success) return alert(json.message || "No data found");
 
     const p = json.data;
+//     const plotArea = Number(p.plotArea || 0);
+// let vacantLandTax = 0;
+
+// if ((p.propertyTypeName || "").toLowerCase().includes("vacant")) {
+//   p.builtUpArea = 0; // built-up area auto 0
+//   vacantLandTax = plotArea * 3.57; // ₹3.57 per sq ft
+
+//   // Populate Vacant Land Table
+//   const tbody = document.getElementById("vacantLandTableBody");
+//   tbody.innerHTML = "";
+//   const tr = document.createElement("tr");
+//   tr.innerHTML = `
+//     <td>${new Date().getFullYear()}</td>
+//     <td>${plotArea}</td>
+//     <td>3.57</td>
+//     <td>${vacantLandTax.toFixed(2)}</td>
+//   `;
+//   tbody.appendChild(tr);
+// }
+
+// // Update Tax Fields
+// document.getElementById("vacantAreaTax").textContent = "₹ " + vacantLandTax.toFixed(2);
+// document.getElementById("totalCurrentTax").textContent = "₹ " + vacantLandTax.toFixed(2);
+// document.getElementById("totalArrearTax").textContent = "₹ 0.00";
+// document.getElementById("latePenalty").textContent = "₹ 0.00";
+// document.getElementById("waterTax").textContent = "₹ 0.00";
+// document.getElementById("totalAmount").textContent = "₹ " + vacantLandTax.toFixed(2);
+// document.getElementById("penaltyRebate").textContent = "₹ 0.00";
+// document.getElementById("totalPayable").textContent = "₹ " + vacantLandTax.toFixed(2);
+const plotArea = Number(p.vacantLandArea || 0);
+const vacantLandTax = Number(p.vacantLandTax || 0);
+
+document.getElementById("vacantAreaTax").textContent = "₹ " + vacantLandTax.toFixed(2);
+
+// Populate Vacant Land Table
+const tbody = document.getElementById("vacantLandTableBody");
+tbody.innerHTML = "";
+if (plotArea > 0) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td>${new Date().getFullYear()}</td>
+    <td>${plotArea}</td>
+    <td>3.57</td>
+    <td>${vacantLandTax.toFixed(2)}</td>
+  `;
+  tbody.appendChild(tr);
+}
+
+// Total Payable
+document.getElementById("totalCurrentTax").textContent = "₹ 0.00";
+document.getElementById("totalArrearTax").textContent = "₹ 0.00";
+document.getElementById("latePenalty").textContent = "₹ 0.00";
+document.getElementById("waterTax").textContent = "₹ 0.00";
+document.getElementById("totalAmount").textContent = "₹ " + vacantLandTax.toFixed(2);
+document.getElementById("penaltyRebate").textContent = "₹ 0.00";
+document.getElementById("totalPayable").textContent = "₹ " + vacantLandTax.toFixed(2);
+
 
     // Basic Info
     document.getElementById("appNoLabel").innerText = p.Application_No || "";
@@ -1075,6 +1110,7 @@ buildingStatus.innerText =
   p.documents?.buildingPhoto ? "Yes" : "No";
 
 </script>
+
       </form>
 
 

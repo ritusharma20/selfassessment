@@ -1625,5 +1625,35 @@ window.addEventListener('DOMContentLoaded', populateDropdowns);
 
 
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const ddlPType = document.getElementById("ddlPType");
+  const plotAreaInput = document.querySelector("input[name='txtPLArea']");
+  const builtUpInput  = document.querySelector("input[name='txtBuiltUpArea']");
+
+  if (!ddlPType || !plotAreaInput || !builtUpInput) return;
+
+  function handleVacantLand() {
+
+    const selectedText =
+      ddlPType.options[ddlPType.selectedIndex]?.text.toLowerCase() || "";
+
+    if (selectedText.includes("vacant")) {
+
+      // 🔒 Built-up auto zero
+      builtUpInput.value = 0;
+      builtUpInput.readOnly = true;
+
+    } else {
+      builtUpInput.readOnly = false;
+    }
+  }
+
+  ddlPType.addEventListener("change", handleVacantLand);
+
+});
+</script>
+
 </body>
 </html>

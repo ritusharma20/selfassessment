@@ -218,6 +218,17 @@ export const saveProperty = async (req, res) => {
       remark: Array.isArray(req.body.floorRemark) ? req.body.floorRemark[i] : req.body.floorRemark
     }));
 
+    // 🔹 VACANT LAND TAX CALCULATION
+    const propertyTypeText = (req.body.ddlPType || "").toLowerCase();
+    const plotArea = Number(req.body.txtPLArea || 0);
+    let vacantLandTax = 0;
+
+    if (propertyTypeText.includes("vacant")) {
+      const RATE = 3.57; // ₹ per sq.ft
+      vacantLandTax = plotArea * RATE;
+    }
+
+
     /* 🔹 PROPERTY SAVE */
     const property = new Property({
       Application_No: applicationNo,
@@ -250,8 +261,12 @@ export const saveProperty = async (req, res) => {
       // floors, // ✅ add floors array here
 
 
+      // 🔹 Add this in the property object
+      vacantLandArea: plotArea,
+      vacantLandTax: vacantLandTax,
+      totalPayable: vacantLandTax, // abhi sirf Vacant Land ke liye
 
-      
+
       documents: {
         registryPaper: req.files?.registryPaper?.[0]?.path || "",
         electricityBill: req.files?.electricityBill?.[0]?.path || "",

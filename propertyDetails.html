@@ -249,13 +249,13 @@ body {
 
 .document-table th,
 .document-table td {
-  border: 1px solid #999;
+  border: 1px solid #050505;
   padding: 8px;
   font-size: 14px;
 }
 
 .document-table th {
-  background: #f0f0f0;
+  background: #c9c9df;
   text-align: center;
   font-weight: bold;
 }
@@ -291,7 +291,7 @@ body {
   border: 1px solid #000;
   padding: 10px;
   margin-top: 5px;
-  background: #f4f4f4;
+  background: #e1e0e7;
 }
 .action-buttons {
   display: flex;
@@ -308,7 +308,7 @@ body {
 .main-title{
   font-size:28px;
   font-weight:600;
-  border-bottom:1px solid #ccc;
+  border-bottom:1px solid #d6c4c4;
   padding-bottom:10px;
 }
 
@@ -355,7 +355,7 @@ body {
 }
 
 .arv-table th{
-  background:#f2f2f2;
+  background:#afaabb;
   font-weight:bold;
 }
 /* Reusing existing ARV table styles */
@@ -400,7 +400,7 @@ body {
 .main-title{
     font-size:28px;
     font-weight:600;
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #131212;
     padding-bottom:10px;
     margin-top:15px;
 }
@@ -434,6 +434,44 @@ body {
 }
 
 .table th,.table td{text-align:center;}
+
+
+.tax-section{
+  margin-top:35px;
+}
+
+.tax-detail-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14px;
+}
+
+.tax-detail-table td{
+  padding:8px 10px;
+  vertical-align:middle;
+}
+
+.tax-detail-table .label{
+  width:25%;
+  text-align:left;
+}
+
+.tax-detail-table .value{
+  width:25%;
+  text-align:center;
+  font-weight:600;
+}
+
+.gap-row td{
+  height:15px;
+}
+
+.tax-calc-title{
+  margin-top:30px;
+}
+
+
+
 
 .footer { margin-top: 40px; padding: 10px; text-align: right; font-size: 13px; border-top: 1px solid #000; }
 </style>
@@ -770,39 +808,151 @@ body {
 
 
 <!-- ================= CURRENT TAX DETAILS ================= -->
-<div class="section tax-section" id="currentTaxSection">
+<!-- ================= CURRENT TAX DETAILS ================= -->
+<div class="section tax-section">
 
-  <div class="sub-title">
-    <label id="currentTaxTitle">Current Tax Details</label>
-  </div>
+  <div class="main-title">Current Tax Details</div>
 
-  <table class="arv-table" id="currentTaxTable">
-    <tbody>
-      <tr>
-        <td style="width:70%; text-align:right;">
-          <label id="currentArvLabel">Annual Rental Value :</label>
-        </td>
-        <td style="width:30%; text-align:center;">
-          <label id="currentArvValue"></label>
-        </td>
-      </tr>
+  <table class="tax-detail-table">
 
-      <tr>
-        <td style="text-align:right;">
-          <label id="currentAnnualTaxLabel">Annual Tax :</label>
-        </td>
-        <td style="text-align:center;">
-          <label id="currentAnnualTaxValue"></label>
-        </td>
-      </tr>
-    </tbody>
+    <tr>
+      <td class="label">Annual Rental Value</td>
+      <td class="value">
+        <span id="annualRentalValue" name="annualRentalValue"></span>
+      </td>
+
+      <td class="label">Annual Tax</td>
+      <td class="value">
+        <span id="annualTax" name="annualTax"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">Other Charges</td>
+      <td class="value">
+        <span id="otherCharges" name="otherCharges"></span>
+      </td>
+
+      <td class="label">Vacant Area Tax</td>
+      <td class="value">
+        <span id="vacantAreaTax" name="vacantAreaTax"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">Total Annual Tax</td>
+      <td class="value">
+        <span id="totalAnnualTax" name="totalAnnualTax"></span>
+      </td>
+
+      <td class="label">Rebate</td>
+      <td class="value">
+        <span id="rebate" name="rebate"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">Rain Water Rebate</td>
+      <td class="value">
+        <span id="rainWaterRebate" name="rainWaterRebate"></span>
+      </td>
+
+      <td class="label">Penalty</td>
+      <td class="value">
+        <span id="penalty" name="penalty"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">SWM Tax</td>
+      <td class="value">
+        <span id="swmTax" name="swmTax"></span>
+      </td>
+
+      <td class="label">Total Payable Tax</td>
+      <td class="value">
+        <span id="totalPayableTax" name="totalPayableTax"></span>
+      </td>
+    </tr>
+
   </table>
-
 </div>
+
 <!-- ================= END CURRENT TAX ================= -->
 
 
 
+
+  
+<!-- ================= TAX CALCULATION ================= -->
+<div class="section tax-calculation">
+
+  <div class="main-title">Tax Calculation</div>
+
+  <table class="tax-detail-table">
+
+    <tr>
+      <td class="label">Total Current Tax</td>
+      <td class="value">
+        <span id="totalCurrentTax" name="totalCurrentTax"></span>
+      </td>
+
+      <td class="label">Total Arrear Tax</td>
+      <td class="value">
+        <span id="totalArrearTax" name="totalArrearTax"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">Penalty for Late Submission</td>
+      <td class="value">
+        <span id="latePenalty" name="latePenalty"></span>
+      </td>
+
+      <td class="label">Water Tax</td>
+      <td class="value">
+        <span id="waterTax" name="waterTax"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">Total Amount</td>
+      <td class="value">
+        <span id="totalAmount" name="totalAmount"></span>
+      </td>
+
+      <td class="label">Penalty Rebate (OTS)</td>
+      <td class="value">
+        <span id="penaltyRebate" name="penaltyRebate"></span>
+      </td>
+    </tr>
+
+    <tr class="gap-row"><td colspan="4"></td></tr>
+
+    <tr>
+      <td class="label">Total Payable</td>
+      <td class="value">
+        <span id="totalPayable" name="totalPayable"></span>
+      </td>
+
+      <td class="label">&nbsp;</td>
+      <td class="value">&nbsp;</td>
+    </tr>
+
+  </table>
+</div>
 
 
 

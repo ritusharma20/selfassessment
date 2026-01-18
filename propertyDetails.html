@@ -952,94 +952,51 @@ body {
       </div>
   
   
+
+
+
+
+
+
+
+
+
+
 <script>
 async function loadProperty() {
   try {
+    /* ===============================
+       1️⃣ FETCH PROPERTY DETAILS
+    =============================== */
     const res = await fetch("http://localhost:3000/api/property-details/latest");
     const json = await res.json();
-    if (!json.success) return alert(json.message || "No data found");
+    if (!json.success) {
+      alert(json.message || "No property data found");
+      return;
+    }
 
     const p = json.data;
-//     const plotArea = Number(p.plotArea || 0);
-// let vacantLandTax = 0;
 
-// if ((p.propertyTypeName || "").toLowerCase().includes("vacant")) {
-//   p.builtUpArea = 0; // built-up area auto 0
-//   vacantLandTax = plotArea * 3.57; // ₹3.57 per sq ft
-
-//   // Populate Vacant Land Table
-//   const tbody = document.getElementById("vacantLandTableBody");
-//   tbody.innerHTML = "";
-//   const tr = document.createElement("tr");
-//   tr.innerHTML = `
-//     <td>${new Date().getFullYear()}</td>
-//     <td>${plotArea}</td>
-//     <td>3.57</td>
-//     <td>${vacantLandTax.toFixed(2)}</td>
-//   `;
-//   tbody.appendChild(tr);
-// }
-
-// // Update Tax Fields
-// document.getElementById("vacantAreaTax").textContent = "₹ " + vacantLandTax.toFixed(2);
-// document.getElementById("totalCurrentTax").textContent = "₹ " + vacantLandTax.toFixed(2);
-// document.getElementById("totalArrearTax").textContent = "₹ 0.00";
-// document.getElementById("latePenalty").textContent = "₹ 0.00";
-// document.getElementById("waterTax").textContent = "₹ 0.00";
-// document.getElementById("totalAmount").textContent = "₹ " + vacantLandTax.toFixed(2);
-// document.getElementById("penaltyRebate").textContent = "₹ 0.00";
-// document.getElementById("totalPayable").textContent = "₹ " + vacantLandTax.toFixed(2);
-const plotArea = Number(p.vacantLandArea || 0);
-const vacantLandTax = Number(p.vacantLandTax || 0);
-
-document.getElementById("vacantAreaTax").textContent = "₹ " + vacantLandTax.toFixed(2);
-
-// Populate Vacant Land Table
-const tbody = document.getElementById("vacantLandTableBody");
-tbody.innerHTML = "";
-if (plotArea > 0) {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td>${new Date().getFullYear()}</td>
-    <td>${plotArea}</td>
-    <td>3.57</td>
-    <td>${vacantLandTax.toFixed(2)}</td>
-  `;
-  tbody.appendChild(tr);
-}
-
-// Total Payable
-document.getElementById("totalCurrentTax").textContent = "₹ 0.00";
-document.getElementById("totalArrearTax").textContent = "₹ 0.00";
-document.getElementById("latePenalty").textContent = "₹ 0.00";
-document.getElementById("waterTax").textContent = "₹ 0.00";
-document.getElementById("totalAmount").textContent = "₹ " + vacantLandTax.toFixed(2);
-document.getElementById("penaltyRebate").textContent = "₹ 0.00";
-document.getElementById("totalPayable").textContent = "₹ " + vacantLandTax.toFixed(2);
-
-
-    // Basic Info
+    /* ===============================
+       2️⃣ BASIC PROPERTY INFO
+    =============================== */
     document.getElementById("appNoLabel").innerText = p.Application_No || "";
     document.getElementById("circleLabel").innerText = p.circleName || "";
     document.getElementById("wardLabel").innerText = p.ward || "";
     document.getElementById("propertyTypeLabel").innerText = p.propertyType || "";
-        // document.getElementById("roadLabel").innerText = p.road || "";
-        
 
-    document.getElementById("assessmentYearLabel").innerText = (p.assessmentYear || []).join(", ");
-    // document.getElementById("otypeLabel").innerText = p.ownershipType || "";
-    document.getElementById("otypeLabel").innerText =
-       p.ownershipName || ""; 
-    // Address
+    document.getElementById("assessmentYearLabel").innerText =
+      (p.assessmentYear || []).join(", ");
+
+    document.getElementById("otypeLabel").innerText = p.ownershipName || "";
+
     document.getElementById("propertyAddressLabel").innerText = p.propertyAddress || "";
     document.getElementById("propertyPinLabel").innerText = p.propertyPin || "";
     document.getElementById("correspondenceAddressLabel").innerText = p.correspondenceAddress || "";
     document.getElementById("correspondencePinLabel").innerText = p.correspondencePin || "";
 
-    // Property Details
     document.getElementById("roadLabel").innerText = p.road_name || "";
     document.getElementById("roadCategoryLabel").innerText = p.roadCategory || "";
-   
     document.getElementById("plotAreaLabel").innerText = p.plotArea || "";
     document.getElementById("builtUpAreaLabel").innerText = p.builtUpArea || "";
     document.getElementById("rainWaterLabel").innerText = p.rainWater || "";
@@ -1047,68 +1004,133 @@ document.getElementById("totalPayable").textContent = "₹ " + vacantLandTax.toF
     document.getElementById("waterConnectionLabel").innerText = p.waterConnection || "";
     document.getElementById("waterTaxTypeLabel").innerText = p.waterTaxType || "";
 
-    // Ownership
     document.getElementById("mobileLabel").innerText = p.mobile || "";
     document.getElementById("emailLabel").innerText = p.email || "";
-    const ownersContainer = document.getElementById("ownersLabel");
-    ownersContainer.innerHTML = "";
-    (p.owners || []).forEach((o, i) => {
-      const div = document.createElement("div");
-      div.textContent = `${i+1}. ${o.name} (CA: ${o.electricityCANo})`;
-      ownersContainer.appendChild(div);
-    });
-// Owner Details Table
+
+    /* ===============================
+       3️⃣ OWNERS TABLE
+    =============================== */
     const ownerTableBody = document.getElementById("ownerTableBody");
-    ownerTableBody.innerHTML = "";
-    (p.owners || []).forEach(o => {
-      const tr = document.createElement("tr");
-      ["gender","name","guardianName","relation","aadharNo","electricityCANo","identityDocument"].forEach(key => {
-        const td = document.createElement("td");
-        td.innerText = o[key] || "-";
-        tr.appendChild(td);
+    if (ownerTableBody) {
+      ownerTableBody.innerHTML = "";
+      (p.owners || []).forEach(o => {
+        const tr = document.createElement("tr");
+        ["gender","name","guardianName","relation","aadharNo","electricityCANo","identityDocument"]
+          .forEach(key => {
+            const td = document.createElement("td");
+            td.innerText = o[key] || "-";
+            tr.appendChild(td);
+          });
+        ownerTableBody.appendChild(tr);
       });
-      ownerTableBody.appendChild(tr);
-    });
-    // Documents
+    }
 
+    /* ===============================
+       4️⃣ FETCH BACKEND TAX DATA
+    =============================== */
+    const encodedAppNo = encodeURIComponent(p.Application_No);
+const taxRes = await fetch(`http://localhost:3000/api/vacantlandtax/latest/${encodedAppNo}`);
 
+    const taxJson = await taxRes.json();
+    if (!taxJson.success) {
+      alert(taxJson.message || "No tax data found");
+      return;
+    }
 
-    
-    const docsContainer = document.getElementById("documentsLabel");
-    docsContainer.innerHTML = "";
-    const docs = [];
-    if (p.documents?.registryPaper) docs.push("Registry Paper");
-    if (p.documents?.electricityBill) docs.push("Electricity Bill");
-    if (p.documents?.buildingPhoto) docs.push("Building Photo");
-    docs.forEach(d => {
-      const div = document.createElement("div");
-      div.textContent = d;
-      docsContainer.appendChild(div);
-    });
+    const t = taxJson.data;
 
-  } catch (err) {
+    /* ===============================
+       5️⃣ VACANT LAND TABLE
+    =============================== */
+    const tbody = document.getElementById("vacantLandTableBody");
+    if (tbody) {
+      tbody.innerHTML = "";
+      if (t.plotArea > 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${new Date().getFullYear()}</td>
+          <td>${t.plotArea}</td>
+          <td>${t.ratePerSqFt}</td>
+          <td>${t.vacantLandTax.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    /* ===============================
+       6️⃣ TAX SUMMARY (IMPORTANT)
+       Vacant Area Tax = Total Annual Tax
+    =============================== */
+
+    // ===== BASIC VALUES =====
+    /* ===============================
+   6️⃣ TAX SUMMARY (ID MATCHED)
+=============================== */
+
+const vacantTax = Number(t.vacantLandTax || 0);
+const percentPenalty = Number(t.percentagePenalty || 0);
+const fixedPenalty = Number(t.fixedPenalty || 0);
+const rebate = Number(t.rebate || 0);
+
+const totalPenalty = percentPenalty + fixedPenalty;
+const totalPayable = vacantTax + totalPenalty - rebate;
+
+/* ===== CURRENT TAX DETAILS ===== */
+document.getElementById("annualRentalValue").innerText = "₹ 0.00";
+document.getElementById("annualTax").innerText = "₹ 0.00";
+document.getElementById("otherCharges").innerText = "₹ 0.00";
+
+document.getElementById("vacantAreaTax").innerText =
+  "₹ " + vacantTax.toFixed(2);
+
+document.getElementById("totalAnnualTax").innerText =
+  "₹ " + vacantTax.toFixed(2);
+
+document.getElementById("rebate").innerText =
+  "₹ " + rebate.toFixed(2);
+
+document.getElementById("rainWaterRebate").innerText = "₹ 0.00";
+
+document.getElementById("penalty").innerText =
+  "₹ " + totalPenalty.toFixed(2);
+
+document.getElementById("swmTax").innerText = "₹ 0.00";
+
+document.getElementById("totalPayableTax").innerText =
+  "₹ " + totalPayable.toFixed(2);
+
+/* ===== TAX CALCULATION ===== */
+document.getElementById("totalCurrentTax").innerText =
+  "₹ " + vacantTax.toFixed(2);
+
+document.getElementById("totalArrearTax").innerText = "₹ 0.00";
+
+document.getElementById("latePenalty").innerText =
+  "₹ " + totalPenalty.toFixed(2);
+
+document.getElementById("waterTax").innerText = "₹ 0.00";
+
+document.getElementById("totalAmount").innerText =
+  "₹ " + totalPayable.toFixed(2);
+
+document.getElementById("penaltyRebate").innerText = "₹ 0.00";
+
+document.getElementById("totalPayable").innerText =
+  "₹ " + totalPayable.toFixed(2);
+  }
+
+ catch (err) {
     console.error(err);
-    alert("Error fetching property data");
+    alert("Error fetching data");
   }
 }
 
 window.onload = loadProperty;
 
 function goToPayment(e) {
-    // yaha apna payment page URL do
-      e.preventDefault(); // form submit stop
-
-    window.location.href = "payment.html";
-  }
-registryStatus.innerText =
-  p.documents?.registryPaper ? "Yes" : "No";
-
-electricityStatus.innerText =
-  p.documents?.electricityBill ? "Yes" : "No";
-
-buildingStatus.innerText =
-  p.documents?.buildingPhoto ? "Yes" : "No";
-
+  e.preventDefault();
+  window.location.href = "payment.html";
+}
 </script>
 
       </form>

@@ -5,6 +5,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+// import vacantlandroutes from "./routes/vacantlandroutes.js";
+
 
 /* ===================== CONFIG ===================== */
 dotenv.config();
@@ -80,6 +82,9 @@ app.use('/api/floor-master', floorMasterRoutes);
 import citizenPropertyRoutes from "./routes/citizenPropertyRoutes.js";
 
 app.use("/api", citizenPropertyRoutes);
+import vacantLandTaxRoute from "./routes/vacantlandroutes.js";
+
+app.use("/api", vacantLandTaxRoute);
 
 
 /* ===================== SERVER ===================== */

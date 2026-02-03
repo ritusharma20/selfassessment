@@ -1,0 +1,282 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<title>Payment Receipt</title>
+<style>
+body{font-family:Arial}
+.box{width:600px;margin:auto;border:1px solid #000;padding:20px}
+.center{text-align:center}
+</style>
+</head>
+<body>
+
+<div class="box">
+  <div class="center">
+    <h2>City of Patna</h2>
+    <h3>Payment Receipt</h3>
+  </div>
+
+  <p>Receipt No: <span id="rno"></span></p>
+  <p>Receipt Date: <span id="rdate"></span></p>
+
+  <p>An amount of Rs. has been received from <b id="name"></b>.</p>
+
+  <p><b>SAS No:</b> <span id="sas"></span></p>
+  <p><b>Mobile:</b> <span id="mobile"></span></p>
+  <p><b>Property Address:</b> <span id="address"></span></p>
+
+  <p><b>Property Tax Paid:</b> ₹<span id="ptax"></span></p>
+  <p><b>SWM Tax Paid:</b> ₹<span id="swm"></span></p>
+  <p><b>Total Tax Paid:</b> ₹<span id="total"></span></p>
+
+  <p><b>Order No:</b> <span id="order"></span></p>
+  <p><b>Transaction Ref:</b> <span id="txn"></span></p>
+
+  <div class="center"><button onclick="window.print()">Print</button></div>
+</div>
+
+<script>
+const r = JSON.parse(localStorage.getItem("receipt"));
+
+document.getElementById("rno").innerText = r.receiptNo;
+document.getElementById("rdate").innerText = new Date(r.paymentDate).toLocaleDateString();
+document.getElementById("name").innerText = r.applicantName;
+document.getElementById("sas").innerText = r.sasNo;
+document.getElementById("mobile").innerText = r.mobile;
+document.getElementById("address").innerText = r.propertyAddress;
+document.getElementById("ptax").innerText = r.propertyTax;
+document.getElementById("swm").innerText = r.swmTax;
+document.getElementById("total").innerText = r.totalTax;
+document.getElementById("order").innerText = r.orderNo;
+document.getElementById("txn").innerText = r.transactionRef;
+</script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<title>Holding Tax Payment Receipt</title>
+<style>
+body{
+  font-family: "Times New Roman", serif;
+  background:#f2f2f2;
+}
+.container{
+  width:720px;
+  margin:20px auto;
+  background:#fff;
+  border:1px solid #000;
+  padding:25px 35px;
+}
+.header{
+  text-align:center;
+}
+.logo{
+  width:90px;
+}
+h2{
+  margin:5px 0;
+  font-size:20px;
+}
+h3{
+  margin:0;
+  font-size:16px;
+  text-decoration:underline;
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  margin-bottom:15px;   /* har row ke niche gap */
+}
+
+
+.logo{
+    width:35%;
+    height:25%;
+}
+p{
+  margin:10px 0;   /* pehle 6px tha */
+  font-size:14px;
+}
+.container1{
+    margin: 3% 0% 0% 10% ;
+    /* row-gap: 3000px; */
+  line-height:1.6;   /* 👈 yahi line gap hai */
+}
+
+.bold{font-weight:bold;}
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:8px;
+}
+.table td{
+  padding:5px;
+}
+/* .qr{
+  text-align:left;
+} */
+
+#qrcode img{
+  border:1px solid #000;
+  padding:3px;
+  margin:15% 0% 0% 25%;
+}
+
+
+.footer{
+  text-align:center;
+  font-size:12px;
+  margin-top:15px;
+}
+.note{
+  border:1px solid #000;
+  padding:8px;
+  font-size:12px;
+  margin-top:15px;
+}
+.print{
+  text-align:center;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <img src="images/nagarpalika.jpeg" class="logo"><br>
+    <!-- <b>CITY OF PATNA</b><br> -->
+    
+    <h3>Payment Receipt</h3>
+  </div>
+
+  <div class="row">
+    <p>Receipt No.: <b id="rno"></b></p>
+    <p>Receipt Date: <b id="rdate"></b></p>
+  </div>
+
+  <p>
+    An amount of Rs. has been received from 
+    <b id="name"></b>. The amount is calculated based on the property
+    details filled by the applicant in the Self-Assessment Form.
+  </p>
+  <p>
+    Property ID (PID) will be generated after the verification of the
+    property details.
+  </p>
+
+  <p>
+    Application and PID generation will be processed by 
+    <span id="processDate">02-02-2026</span>.
+  </p>
+<div class="container1">
+  <p><b>SAS No.:</b> <span id="sas"></span></p>
+  <p><b>Applicant Name:</b> <span id="name2"></span></p>
+  <p><b>Mobile No.:</b> <span id="mobile"></span></p>
+  <p><b>Property Address:</b> <span id="address"></span></p>
+
+  <p><b>Property Tax Paid (A):</b> <span id="ptax"></span></p>
+  <p><b>SWM Tax Paid (B):</b> <span id="swm"></span></p>
+  <p><b>Total Tax Paid (A + B):</b> <span id="total"></span></p>
+
+  <p><b>Payment Date:</b> <span id="rdate2"></span></p>
+  <p><b>Order No.:</b> <span id="order"></span></p>
+  <p><b>Transaction Ref. No.:</b> <span id="txn"></span></p>
+  <!-- <div class="row">
+    <div class="qr">
+      <img src="qr.png" width="90">
+    </div>
+    <div style="margin-top:50px;">
+      Patna Municipal Corporation
+    </div>
+  </div> -->
+  <div class="row">
+  <div class="qr">
+    <div id="qrcode"></div>
+  </div>
+  <div style="margin-top:50px;">
+    Patna Municipal Corporation
+  </div>
+</div>
+</div>
+
+
+  <div class="note">
+    <b>Note:</b> According to section 13(3) of Bihar Property Tax
+    (Assessment, Collection and Recovery) Rules, 2013:
+    "If any owner or the holding or assessee wilfully suppresses
+    material information essential for assessment of holding tax or
+    under assesses the holding tax, such persons shall be liable for
+    payment of difference between the amount actually payable and the
+    self-assessed tax and also a fine of one hundred percent of such
+    differential amount."
+  </div>
+
+  <div class="footer">
+    This is computer generated receipt and doesn't require signature.
+  </div>
+
+  <div class="print">
+    <button onclick="window.print()">Print</button>
+  </div>
+
+</div>
+
+<script>
+const r = JSON.parse(localStorage.getItem("receipt"));
+
+document.getElementById("rno").innerText = r.receiptNo;
+document.getElementById("rdate").innerText = r.paymentDate;
+document.getElementById("rdate2").innerText = r.paymentDate;
+
+document.getElementById("name").innerText = r.applicantName;
+document.getElementById("name2").innerText = r.applicantName;
+
+document.getElementById("sas").innerText = r.sasNo;
+document.getElementById("mobile").innerText = r.mobile;
+document.getElementById("address").innerText = r.propertyAddress;
+
+document.getElementById("ptax").innerText = r.propertyTax;
+document.getElementById("swm").innerText = r.swmTax;
+document.getElementById("total").innerText = r.totalTax;
+
+document.getElementById("order").innerText = r.orderNo;
+document.getElementById("txn").innerText = r.transactionRef;    
+/* 🔥 QR CODE GENERATION */
+
+const qrText = r.receiptNo;
+
+// const qrText = `
+// Receipt No: ${r.receiptNo}
+// Applicant: ${r.applicantName}
+// SAS No: ${r.sasNo}
+// Total Tax: ₹${r.totalTax}
+// Payment Date: ${r.paymentDate}
+// Transaction Ref: ${r.transactionRef}
+// `;
+
+// new QRCode(document.getElementById("qrcode"), {
+//   text: qrText,
+//   width: 90,
+//   height: 90
+// });
+new QRCode(document.getElementById("qrcode"), {
+  text: qrText,
+  width: 90,
+  height: 90
+});
+
+
+</script>
+
+</body>
+</html>

@@ -368,6 +368,7 @@
           <div class="col-lg-4 col-md-4">
             <label><strong>Water Tax Type <sup>*</sup></strong></label>
             <select id="ddlWaterTaxType" name="ddlWaterTaxType" class="form-control">
+       
               <option value="">Select</option>
             </select>
 
@@ -981,7 +982,7 @@ ddlPType.innerHTML += `<option value="${p.property_type}">
 
     });
   </script>
-  <!-- ...........................rainwater.......... -->
+  // <!-- ...........................rainwater.......... -->
   <script>
     fetch("http://localhost:3000/api/rainwater")
       .then(res => res.json())
@@ -1001,7 +1002,7 @@ ddlPType.innerHTML += `<option value="${p.property_type}">
       .catch(err => console.error(err));
   </script>
 
-  <!-- ..............waterconnectionroutes............... -->
+  // <!-- ..............waterconnectionroutes............... -->
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -1022,28 +1023,37 @@ ddlPType.innerHTML += `<option value="${p.property_type}">
 
     });
   </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-      const ddl = document.getElementById("ddlWaterTaxType");
-      if (!ddl) {
-        console.error("ddlWaterTaxType NOT FOUND");
-        return;
-      }
+  const ddl = document.getElementById("ddlWaterTaxType");
 
-      fetch("http://localhost:3000/api/water-tax-type")
-        .then(res => res.json())
-        .then(data => {
-          ddl.innerHTML = `<option value="">Select</option>`;
-          data.forEach(item => {
-            ddl.innerHTML += `<option value="${item.label}">${item.label}</option>`;
-          });
-        });
+  fetch("http://localhost:3000/api/water-tax-type")
+    .then(res => res.json())
+    .then(data => {
+
+      ddl.innerHTML = `<option value="">Select</option>`;
+
+      data.forEach(item => {
+        let amount = 0;
+
+        if (item.label.includes("@")) {
+          amount = Number(item.label.split("@")[1]);
+        }
+
+        const opt = document.createElement("option");
+        opt.value = amount;        // ✅ AMOUNT backend को जाएगा
+        opt.textContent = item.label;
+        ddl.appendChild(opt);
+      });
     });
+
+});
+</script>
 
 
   </script>
-  <!-- ................ownershiptype................. -->
+  // <!-- ................ownershiptype................. -->
   <select id="ddlOT"></select>
 
 <script>
@@ -1368,6 +1378,7 @@ ddlOT.addEventListener("change", function () {
 
         } else {
           // ❌ untick → clear
+       
           addressC.value = "";
           pinC.value = "";
 

@@ -1108,12 +1108,21 @@ document.getElementById("totalArrearTax").innerText = "₹ 0.00";
 document.getElementById("latePenalty").innerText =
   "₹ " + totalPenalty.toFixed(2);
 
-document.getElementById("waterTax").innerText = "₹ 0.00";
+// document.getElementById("waterTax").innerText = "₹ 0.00";
 
 document.getElementById("totalAmount").innerText =
   "₹ " + totalPayable.toFixed(2);
 
+t.waterTax = Number(p.waterTaxType || 0);
+document.getElementById("waterTax").innerText =
+  "₹ " + t.waterTax.toFixed(2);
+
+
+// document.getElementById("waterTax").innerText =
+//   "₹ " +(t.waterTax || 0).toFixed(2);
+
 document.getElementById("penaltyRebate").innerText = "₹ 0.00";
+// document.getElementById("waterTax").innerText = "₹ " + Number(t.waterTax || 0).toFixed(2);
 
 document.getElementById("totalPayable").innerText =
   "₹ " + totalPayable.toFixed(2);
@@ -1127,10 +1136,48 @@ document.getElementById("totalPayable").innerText =
 
 window.onload = loadProperty;
 
-function goToPayment(e) {
+// function goToPayment(e) {
+//   e.preventDefault();
+//   window.location.href = "payment.html";
+// }
+// function goToPayment(e) {
+//   e.preventDefault();
+//   window.location.href = "payment.html";
+// }
+
+async function goToPayment(e) {
   e.preventDefault();
-  window.location.href = "payment.html";
+  console.log("Pay button clicked");
+
+  const sasNo = document.getElementById("appNoLabel").innerText;
+
+  const totalPayable = document.getElementById("totalAmount")
+    .innerText.replace("₹", "")
+    .trim();
+
+  console.log("SAS:", sasNo);
+  console.log("Total:", totalPayable);
+  localStorage.setItem("payableAmount", totalPayable);
+
+  const res = await fetch("http://localhost:3000/api/receipt/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sasNo, totalPayable })
+  });
+
+  const json = await res.json();
+  console.log("Server:", json);
+
+  if (json.success) {
+    localStorage.setItem("receipt", JSON.stringify(json.data));
+    window.location.href = "paynow.html";
+  } else {
+    alert("Receipt generate failed");
+  }
 }
+
+
+
 </script>
 
       </form>
@@ -1138,3 +1185,4 @@ function goToPayment(e) {
 
 </body>
 </html>
+

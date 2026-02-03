@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Patna Municipal Corporation - Payment</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:#f4f4f4;
+}
+
+/* HEADER */
+.header{
+  background:#fff;
+  border-bottom:1px solid #ccc;
+  padding:10px 40px;
+  display:flex;
+  align-items:center;
+}
+.header img{
+  height:55px;
+}
+.header h2{
+  margin-left:15px;
+  font-size:18px;
+  color:#000;
+}
+
+/* MAIN BOX */
+.main{
+  text-align:center;
+  margin-top:80px;
+}
+.amount-box{
+  width:300px;
+  margin:0 auto 30px;
+}
+.amount-box label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+.amount-box input{
+  width:100%;
+  padding:8px;
+  font-size:16px;
+  text-align:center;
+}
+
+/* BUTTONS */
+.btn{
+  padding:12px 25px;
+  font-size:14px;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  margin:10px;
+}
+.pay{
+  background:#1f4ea3;
+}
+.demand{
+  background:#c0392b;
+}
+
+/* FOOTER */
+.footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#333;
+  color:#fff;
+  font-size:12px;
+  padding:8px 20px;
+  display:flex;
+  justify-content:space-between;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="images/nagarpalika.jpeg">
+  <h2>Patna Municipal Corporation &nbsp; | &nbsp; पटना नगर निगम</h2>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <div class="amount-box">
+    <label>Payable Amount:</label>
+    <input type="text" id="payableAmount" readonly>
+  </div>
+
+  <button class="btn pay" onclick="window.location.href='payment.html'">PAY ONLINE ➤</button>
+  <button class="btn demand">DEMAND VIEW ➤</button>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>© Patna Municipal Corporation 2023</div>
+  <div>Developed & Maintained By PMC</div>
+</div>
+
+<script>
+  // amount from previous page
+  const amount = localStorage.getItem("payableAmount");
+  document.getElementById("payableAmount").value = amount ? amount : "0.00";
+</script>
+
+</body>
+</html>

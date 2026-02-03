@@ -87,6 +87,10 @@ import vacantLandTaxRoute from "./routes/vacantlandroutes.js";
 app.use("/api", vacantLandTaxRoute);
 
 
+import receiptroutes from "./routes/receiptroutes.js";
+
+app.use("/api", receiptroutes); 
+
 /* ===================== SERVER ===================== */
 const PORT = process.env.PORT || 3000;
 

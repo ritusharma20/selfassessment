@@ -127,7 +127,7 @@ body{
 
       <div class="detail">
         <span>Order Amount</span>
-        <p class="amount">₹ 381.00</p>
+<p class="amount" id="orderAmount">₹ 0.00</p>
       </div>
     </div>
 
@@ -191,11 +191,19 @@ body{
 </div>
 
 <script>
-function toggleOption(id){
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === "block" ? "none" : "block";
-}
+// function toggleOption(id){
+//   const el = document.getElementById(id);
+//   el.style.display = el.style.display === "block" ? "none" : "block";
+// 
+
+// }
+  // Get total from localStorage
+  const totalPayable = localStorage.getItem("payableAmount") || "0.00";
+
+  // Update the Order Amount
+  document.getElementById("orderAmount").innerText = "₹ " + totalPayable;
 </script>
+
 
 </body>
 </html>

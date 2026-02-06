@@ -1,209 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>PMC Online Payment</title>
+  <meta charset="UTF-8">
+  <title>PMC Online Payment</title>
 
-<style>
-body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
 
-.wrapper{
-  width:100%;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+    .container {
+      width: 900px;
+      margin: 50px auto;
+      display: flex;
+      background: white;
+      box-shadow: 0 0 10px #ccc;
+    }
 
-.payment-box{
-  width:900px;
-  background:#fff;
-  display:flex;
-  box-shadow:0 0 10px rgba(0,0,0,0.15);
-}
+    .left {
+      width: 35%;
+      background: #0b5ed7;
+      color: white;
+      padding: 25px;
+    }
 
-/* LEFT PANEL */
-.left-panel{
-  width:35%;
-  background:#1f4fa3;
-  color:#fff;
-  padding:30px;
-}
+    .right {
+      width: 65%;
+      padding: 25px;
+    }
 
-.left-panel h3{
-  font-size:14px;
-  text-transform:uppercase;
-  margin-bottom:30px;
-}
+    .option {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
 
-.detail{
-  margin-bottom:15px;
-}
+    .pay-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #0b5ed7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-.detail span{
-  font-size:12px;
-  opacity:0.8;
-}
-
-.detail p{
-  margin:5px 0 0;
-  font-size:14px;
-  font-weight:bold;
-}
-
-.amount{
-  font-size:20px;
-}
-
-/* RIGHT PANEL */
-.right-panel{
-  width:65%;
-  padding:30px 40px;
-}
-
-.right-panel h3{
-  font-size:16px;
-  margin-bottom:20px;
-  border-bottom:1px solid #ddd;
-  padding-bottom:10px;
-}
-
-.pay-option{
-  padding:15px 10px;
-  border-bottom:1px solid #eee;
-  cursor:pointer;
-}
-
-.pay-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.pay-header span{
-  font-size:15px;
-}
-
-.arrow{
-  font-size:18px;
-}
-
-.pay-body{
-  display:none;
-  padding:10px 20px;
-  background:#f9fbff;
-}
-
-.pay-body label{
-  display:block;
-  margin-bottom:8px;
-  cursor:pointer;
-}
-</style>
+    .pay-btn:hover {
+      background: #084298;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="wrapper">
-  <div class="payment-box">
+  <div class="container">
 
-    <!-- LEFT -->
-    <div class="left-panel">
+    <!-- LEFT SIDE -->
+    <div class="left">
       <h3>PMC ONLINE AND MANUAL TAX COLLECTION</h3>
-
-      <div class="detail">
-        <span>Order ID</span>
-        <p>6593505</p>
-      </div>
-
-      <div class="detail">
-        <span>Merchant</span>
-        <p>PMC ONLINE AND MANUAL TAX COLLECTION</p>
-      </div>
-
-      <div class="detail">
-        <span>Order Amount</span>
-<p class="amount" id="orderAmount">₹ 0.00</p>
-      </div>
+      <p><b>Order ID:</b> <span id="orderId">Generating...</span></p>
+      <p><b>Merchant:</b><br>PMC ONLINE TAX COLLECTION</p>
+      <p><b>Order Amount:</b><br>₹ <span id="amountText">0</span></p>
     </div>
 
-    <!-- RIGHT -->
-    <div class="right-panel">
+    <!-- RIGHT SIDE -->
+    <div class="right">
       <h3>CHOOSE A PAYMENT OPTION</h3>
 
-      <!-- CARD -->
-      <div class="pay-option" onclick="toggleOption('card')">
-        <div class="pay-header">
-          <span>💳 Card</span>
-          <span class="arrow">›</span>
-        </div>
-        <div class="pay-body" id="card">
-          <label><input type="radio" name="card"> Debit Card</label>
-          <label><input type="radio" name="card"> Credit Card</label>
-        </div>
+      <div class="option">
+        <input type="radio" name="pay" checked> Debit Card
+      </div>
+      <div class="option">
+        <input type="radio" name="pay"> Credit Card
+      </div>
+      <div class="option">
+        <input type="radio" name="pay"> Netbanking
+      </div>
+      <div class="option">
+        <input type="radio" name="pay"> UPI
       </div>
 
-      <!-- NETBANKING -->
-      <div class="pay-option" onclick="toggleOption('netbanking')">
-        <div class="pay-header">
-          <span>🏦 Netbanking</span>
-          <span class="arrow">›</span>
-        </div>
-        <div class="pay-body" id="netbanking">
-          <label><input type="radio" name="nb"> State Bank of India</label>
-          <label><input type="radio" name="nb"> HDFC Bank</label>
-          <label><input type="radio" name="nb"> ICICI Bank</label>
-          <label><input type="radio" name="nb"> Axis Bank</label>
-        </div>
-      </div>
-
-      <!-- UPI -->
-      <div class="pay-option" onclick="toggleOption('upi')">
-        <div class="pay-header">
-          <span>📱 UPI</span>
-          <span class="arrow">›</span>
-        </div>
-        <div class="pay-body" id="upi">
-          <label><input type="radio" name="upi"> Google Pay</label>
-          <label><input type="radio" name="upi"> PhonePe</label>
-          <label><input type="radio" name="upi"> Paytm</label>
-        </div>
-      </div>
-
-      <!-- BHARAT QR -->
-      <div class="pay-option" onclick="toggleOption('qr')">
-        <div class="pay-header">
-          <span>🇮🇳 Bharat QR</span>
-          <span class="arrow">›</span>
-        </div>
-        <div class="pay-body" id="qr">
-          <p>Scan QR using any UPI App</p>
-        </div>
-      </div>
-
+      <button class="pay-btn" onclick="payNow()">Proceed to Pay</button>
     </div>
 
   </div>
-</div>
 
-<script>
-// function toggleOption(id){
-//   const el = document.getElementById(id);
-//   el.style.display = el.style.display === "block" ? "none" : "block";
-// 
+  <!-- Razorpay -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-// }
-  // Get total from localStorage
-  const totalPayable = localStorage.getItem("payableAmount") || "0.00";
+  <script>
+    /* ===============================
+       DYNAMIC TAX AMOUNT (example)
+       =============================== */
 
-  // Update the Order Amount
-  document.getElementById("orderAmount").innerText = "₹ " + totalPayable;
-</script>
+    // 👉 yaha tum backend se fetch bhi kar sakti ho
+    // abhi demo ke liye fixed liya hai
+    let totalTaxAmount = 642; // ₹642
 
+    document.getElementById("amountText").innerText = totalTaxAmount;
+
+    let createdOrderId = "";
+
+    /* ===============================
+       CREATE ORDER + PAY
+       =============================== */
+    async function payNow() {
+      try {
+        // 1️⃣ CREATE ORDER (BACKEND)
+        const res = await fetch("http://localhost:3000/api/payment/create-order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            amount: totalTaxAmount
+          })
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          alert("Order creation failed");
+          return;
+        }
+
+        const order = data.order;
+        createdOrderId = order.id;
+        document.getElementById("orderId").innerText = order.id;
+
+        // 2️⃣ RAZORPAY OPTIONS
+        var options = {
+          key: "rzp_test_SCpo7w8tfPAKQj", // ✅ same as env
+          amount: order.amount,
+          currency: "INR",
+          name: "PMC Online Tax Collection",
+          description: "Property Tax Payment",
+          order_id: order.id,
+
+          handler: async function (response) {
+
+            // 3️⃣ VERIFY PAYMENT (BACKEND)
+            const verifyRes = await fetch("http://localhost:3000/api/payment/verify-payment", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+                amount: totalTaxAmount
+              })
+
+            });
+
+            const verifyData = await verifyRes.json();
+
+            if (verifyData.success) {
+              alert("✅ Payment Successful & Saved\nPayment ID: " + response.razorpay_payment_id);
+            } else {
+              alert("❌ Payment Verification Failed");
+            }
+          },
+
+          theme: {
+            color: "#0b5ed7"
+          }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    }
+  </script>
 
 </body>
+
 </html>

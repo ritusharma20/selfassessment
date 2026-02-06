@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PMC Online Payment</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    .container {
+      width: 900px;
+      margin: 50px auto;
+      display: flex;
+      background: white;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    /* LEFT BOX */
+    .left {
+      width: 35%;
+      background: #0b5ed7;
+      color: white;
+      padding: 25px;
+    }
+
+    .left h3 {
+      margin-top: 0;
+    }
+
+    /* RIGHT BOX */
+    .right {
+      width: 65%;
+      padding: 25px;
+    }
+
+    .option {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .pay-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #0b5ed7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .pay-btn:hover {
+      background: #084298;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <h3>PMC ONLINE AND MANUAL TAX COLLECTION</h3>
+    <p><b>Order ID:</b> 6593505</p>
+    <p><b>Merchant:</b><br>PMC ONLINE AND MANUAL TAX COLLECTION</p>
+    <p><b>Order Amount:</b><br>₹ 642.60</p>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right">
+    <h3>CHOOSE A PAYMENT OPTION</h3>
+
+    <div class="option">
+      <input type="radio" name="pay" checked> Debit Card
+    </div>
+
+    <div class="option">
+      <input type="radio" name="pay"> Credit Card
+    </div>
+
+    <div class="option">
+      <input type="radio" name="pay"> Netbanking
+    </div>
+
+    <div class="option">
+      <input type="radio" name="pay"> UPI
+    </div>
+
+    <div class="option">
+      <input type="radio" name="pay"> Bharat QR
+    </div>
+
+    <button class="pay-btn" onclick="payNow()">Proceed to Pay</button>
+  </div>
+
+</div>
+
+<!-- RAZORPAY DEMO -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+function payNow() {
+  var options = {
+    key: "rzp_test_1DP5mmOlF5G5ag",
+    amount: 64260,
+    currency: "INR",
+    name: "PMC Online Tax Collection",
+    description: "Debit Card Payment Demo",
+    handler: function () {
+      alert("Payment Successful (Demo)");
+    }
+  };
+
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+</script>
+
+</body>
+</html>

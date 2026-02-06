@@ -5,12 +5,16 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import paymentRoutes from "./routes/paymentRoutes.js";
+
 // import vacantlandroutes from "./routes/vacantlandroutes.js";
 
 
 /* ===================== CONFIG ===================== */
 dotenv.config();
 const app = express();
+console.log("ENV CHECK FROM SERVER:", process.env.RAZORPAY_KEY_ID);
+
 
 /* ===== Fix __dirname (ES Module) ===== */
 const __filename = fileURLToPath(import.meta.url);
@@ -91,9 +95,14 @@ import receiptroutes from "./routes/receiptroutes.js";
 
 app.use("/api", receiptroutes); 
 
+
+app.use("/api/payment", paymentRoutes);
+
+
 /* ===================== SERVER ===================== */
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
